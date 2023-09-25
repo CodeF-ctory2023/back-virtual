@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -33,7 +34,7 @@ public class Socios {
     private String nombre;
     
     @Column (name = "correoelectronico" )
-    private String correoElectronico;
+    private String correo_electronico;
     
     @Column (name = "telefono" )
     private String telefono;
@@ -71,12 +72,11 @@ public class Socios {
     @Column (name = "contrasena" )
     private String contrasena;
     
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_socio_fk", insertable = false, updatable = false, nullable = true)
-    private Vehiculo vehiculo;
+    @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
+    private List<Vehiculo> vehiculos;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "administradorId", insertable = false, updatable = false, nullable = true)
+    @JoinColumn(name = "administradorid", insertable = false, updatable = false, nullable = true)
     private Administrador administrador;
     
 }

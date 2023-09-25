@@ -38,6 +38,6 @@ public class Suspension {
     private String motivo;
     
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "socioId", insertable = false, updatable = false, nullable = true)
-    private Socios socio;
+    @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
+    private Socios socios;
 }

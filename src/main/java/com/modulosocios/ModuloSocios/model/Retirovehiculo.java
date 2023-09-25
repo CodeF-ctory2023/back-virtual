@@ -24,6 +24,7 @@ import lombok.Data;
 @Data
 public class Retirovehiculo
 {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
@@ -43,11 +44,13 @@ public class Retirovehiculo
     private String justificacion;
     
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehiculoId", insertable = false, updatable = false, nullable = true)
+    @JoinColumn(name = "vehiculoid", insertable = false, updatable = false, nullable = true)
     private Vehiculo vehiculo;
    
       
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "socioId", insertable = false, updatable = false, nullable = true)
-    private Socios socio;
+    @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
+    private Socios socios;
+    
+   
 }

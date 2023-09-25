@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.Date;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -49,8 +50,7 @@ public class Administrador
     private Date fechaRegistroAdmin;
     
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_administrador_fk", insertable = false, updatable = false, nullable = true)
-    private Socios socio;
+    @OneToMany(mappedBy = "administrador")
+    private List<Socios> socios;
 }
 

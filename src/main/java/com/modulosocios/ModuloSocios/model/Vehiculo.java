@@ -62,6 +62,6 @@ public class Vehiculo {
     private String adjuntoDocumentos;
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_vehiculo_fk", insertable = false, updatable = false, nullable = true)
+    @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
     private Socios socio;
 }
