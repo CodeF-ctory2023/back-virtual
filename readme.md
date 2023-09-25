@@ -1,5 +1,5 @@
 ## git add .
 # git status
-# git commit -m "Actualizacion de las clases y sus relaciones"
+# git commit -m "Traer consultas "
 # git remote -v
 ## git push origin master

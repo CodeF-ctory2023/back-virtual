@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author anima
  */
 @RestController
-@RequestMapping("/socios")
+@RequestMapping("/socio")
 public class SociosController {
     
     private SociosServices sociosServices;
@@ -25,9 +25,9 @@ public class SociosController {
         this.sociosServices = sociosServices;
     }
     
-    @GetMapping("/find-by-name/{name}")
-    public ResponseEntity<List<Socios>> findByName (@PathVariable String name){
-        var socios = sociosServices.findByname(name);
+    @GetMapping("/find-by-name/{nombre}")
+    public ResponseEntity<List<Socios>> findByName (@PathVariable String nombre){
+        var socios = sociosServices.findByName(nombre);
         
         return ResponseEntity.ok(socios);
     }
@@ -38,5 +38,10 @@ public class SociosController {
         return ResponseEntity.ok(sociosList);
     }
     
+    @GetMapping("/find-id/{id}")
+    public ResponseEntity<Socios> findById(@PathVariable long id) {
+        var socio = sociosServices.findById((int)id);
+        return ResponseEntity.ok(socio);
+    }
     
 }

@@ -32,7 +32,7 @@ public class SociosDto {
 
     private String motivosuspension;
 
-    private Boolean pendienteverificacion;
+    private Boolean pendienteVerificacion;
 
     private String correo_notificacion;
 
@@ -43,7 +43,7 @@ public class SociosDto {
     public SociosDto() {
     }
 
-    public SociosDto(Integer id, String nombre, String correoelectronico, String telefono, String licenciaConducir, String documentoidentidad, String estadoverificacion, Date fecharegistro, Date fechaverificacion, Date fechasuspension, String motivosuspension, Boolean pendienteverificacion, String correo_notificacion, Integer administradorid, String contrasena) {
+    public SociosDto(Integer id, String nombre, String correoelectronico, String telefono, String licenciaConducir, String documentoidentidad, String estadoverificacion, Date fecharegistro, Date fechaverificacion, Date fechasuspension, String motivosuspension, Boolean pendienteVerificacion, String correo_notificacion, Integer administradorid, String contrasena) {
         this.id = id;
         this.nombre = nombre;
         this.correoelectronico = correoelectronico;
@@ -55,7 +55,7 @@ public class SociosDto {
         this.fechaverificacion = fechaverificacion;
         this.fechasuspension = fechasuspension;
         this.motivosuspension = motivosuspension;
-        this.pendienteverificacion = pendienteverificacion;
+        this.pendienteVerificacion = pendienteVerificacion;
         this.correo_notificacion = correo_notificacion;
         this.administradorid = administradorid;
         this.contrasena = contrasena;

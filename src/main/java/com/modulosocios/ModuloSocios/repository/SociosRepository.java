@@ -9,8 +9,9 @@ import org.springframework.stereotype.Repository;
  *
  * @author anima
  */
-@Repository
+
+
 public interface SociosRepository extends JpaRepository<Socios, Integer>{
     
-    List <Socios> findByNombreStartingWith(String nombre);
+    List <Socios> findByNombreContainingIgnoreCase(String nombre);
 }

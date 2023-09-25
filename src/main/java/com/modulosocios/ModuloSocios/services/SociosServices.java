@@ -57,8 +57,8 @@ public class SociosServices {
 
     
     public Socios createSocios(Socios socios) {
-        if (Objects.nonNull(socios.getId_socio_fk())) {
-            Optional<Socios> sociosOptional = sociosRepository.findById(socios.getId_socio_fk());
+        if (Objects.nonNull(socios.getId())) {
+            Optional<Socios> sociosOptional = sociosRepository.findById(socios.getId());
             if (sociosOptional.isPresent()) {
                 log.error("Datos duplicados");
                 throw new RuntimeException("Datos duplicados");
@@ -72,11 +72,11 @@ public class SociosServices {
         }
     }
      public Socios updateSocios (Socios socios) {
-        if (Objects.isNull(socios.getId_socio_fk())){
+        if (Objects.isNull(socios.getId())){
             throw new RuntimeException("ex.student.object_not_found");
         }
 
-        var sociosTransaction = sociosRepository.findById(socios.getId_socio_fk())
+        var sociosTransaction = sociosRepository.findById(socios.getId())
                 .orElseThrow(() -> new RuntimeException("ex.socios.data_not_found") );
 
         sociosTransaction.setDocumentoIdentidad(socios.getDocumentoIdentidad());
@@ -87,8 +87,8 @@ public class SociosServices {
 
 
     //lista de socios
-    public List<Socios> findByname(String nombre) {
-        var socios = sociosRepository.findByNombreStartingWith(nombre);
+    public List<Socios> findByName(String nombre) {
+        var socios = sociosRepository.findByNombreContainingIgnoreCase(nombre);
 
         return socios;
     }

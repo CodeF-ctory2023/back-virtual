@@ -28,7 +28,7 @@ public class Socios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
     @Column (name = "id" )
-    private Integer id_socio_fk;
+    private Integer id;
     
     @Column (name = "nombre" )
     private String nombre;
@@ -60,8 +60,8 @@ public class Socios {
     @Column (name = "motivosuspension" )
     private String motivoSuspension;
     
-    @Column (name = "pendienteverificacion" )
-    private Boolean pendienteVerificacion;
+    @Column(name = "pendientedeverificacion")
+    private Boolean pendientedeVerificacion;
     
     @Column (name = "correo_notificacion" )
     private String correoNotificacion;
