@@ -1,6 +1,7 @@
 
 package com.modulosocios.ModuloSocios.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -77,6 +78,7 @@ public class Socios {
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "administradorid", insertable = false, updatable = false, nullable = true)
+    @JsonIgnore
     private Administrador administrador;
     
 }

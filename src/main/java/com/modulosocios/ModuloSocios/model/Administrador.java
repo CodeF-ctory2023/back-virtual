@@ -1,6 +1,7 @@
 
 package com.modulosocios.ModuloSocios.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -51,6 +52,7 @@ public class Administrador
     
 
     @OneToMany(mappedBy = "administrador")
+    @JsonIgnore
     private List<Socios> socios;
 }
 
