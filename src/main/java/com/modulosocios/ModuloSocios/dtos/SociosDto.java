@@ -1,67 +1,55 @@
 package com.modulosocios.ModuloSocios.dtos;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
-import lombok.Data;
+import java.util.List;
 
 /**
  *
  * @author anima
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SociosDto {
 
     private Integer id;
 
     private String nombre;
 
-    private String correoelectronico;
+    private String correoElectronico;
 
     private String telefono;
 
     private String licenciaConducir;
 
-    private String documentoidentidad;
+    private String documentoIdentidad;
 
-    private String estadoverificacion;
+    private String estadoVerificacion;
 
-    private Date fecharegistro;
+    private Date fechaRegistro;
 
-    private Date fechaverificacion;
+    private Date fechaVerificacion;
 
-    private Date fechasuspension;
+    private Date fechaSuspension;
 
-    private String motivosuspension;
+    private String motivoSuspension;
 
-    private Boolean pendienteVerificacion;
+    private Boolean pendientedeVerificacion;
 
-    private String correo_notificacion;
+    private String correoNotificacion;
 
-    private Integer administradorid;
+    private Integer administradorId;
 
     private String contrasena;
 
-    public SociosDto() {
-    }
+    private List<VehiculoDto> vehiculos;
 
-    public SociosDto(Integer id, String nombre, String correoelectronico, String telefono, String licenciaConducir, String documentoidentidad, String estadoverificacion, Date fecharegistro, Date fechaverificacion, Date fechasuspension, String motivosuspension, Boolean pendienteVerificacion, String correo_notificacion, Integer administradorid, String contrasena) {
-        this.id = id;
-        this.nombre = nombre;
-        this.correoelectronico = correoelectronico;
-        this.telefono = telefono;
-        this.licenciaConducir = licenciaConducir;
-        this.documentoidentidad = documentoidentidad;
-        this.estadoverificacion = estadoverificacion;
-        this.fecharegistro = fecharegistro;
-        this.fechaverificacion = fechaverificacion;
-        this.fechasuspension = fechasuspension;
-        this.motivosuspension = motivosuspension;
-        this.pendienteVerificacion = pendienteVerificacion;
-        this.correo_notificacion = correo_notificacion;
-        this.administradorid = administradorid;
-        this.contrasena = contrasena;
-    }
-    
-    
-    
-    
+    private AdministradorDto administrador;
+
 }

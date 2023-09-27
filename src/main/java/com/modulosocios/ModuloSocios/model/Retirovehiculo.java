@@ -32,10 +32,10 @@ public class Retirovehiculo
     private Integer id;
     
     @Column (name = "socioid" )
-    private Integer socioId;
+    private Integer socioid;
     
     @Column (name = "vehiculoid" )
-    private Integer vehiculoId;
+    private Integer vehiculoid;
     
     @Column (name = "fechaHoraRetiro" )
     private Date fechaHoraRetiro;

@@ -1,6 +1,9 @@
 
 package com.modulosocios.ModuloSocios.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -59,8 +62,9 @@ public class Vehiculo {
     
     @Column (name = "adjuntodocumentos" )
     private String adjuntoDocumentos;
-    
+
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
+    @JoinColumn(name = "id", insertable = false, updatable = false, nullable = true)
     private Socios socio;
 }

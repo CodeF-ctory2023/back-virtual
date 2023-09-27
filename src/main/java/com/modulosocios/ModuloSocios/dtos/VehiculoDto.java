@@ -1,36 +1,39 @@
 
 package com.modulosocios.ModuloSocios.dtos;
 
-import lombok.Data;
+import lombok.*;
 
 /**
  *
  * @author anima
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class VehiculoDto {
-    
+
     private Integer id;
-    
-    private Integer socioid;
-    
+
+    private Integer id_vehiculo_fk;
+
     private String marca;
-    
+
     private String modelo;
-    
+
     private Integer capacidad;
-    
+
     private Boolean habilitadoEquipaje;
-    
+
     private Boolean permiteMascotas;
-    
+
     private String matricula;
-    
+
     private String soat;
-    
+
     private String tecnomecanica;
-         
-    private String estadoverificacion;
-    
-    private String adjuntodocumentos;
+
+    private String estadoVerificacion;
+
+    private String adjuntoDocumentos;
 }

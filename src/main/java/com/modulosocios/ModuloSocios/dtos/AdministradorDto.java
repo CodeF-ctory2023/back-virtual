@@ -5,27 +5,31 @@
 package com.modulosocios.ModuloSocios.dtos;
 
 import java.util.Date;
-import lombok.Data;
+
+import lombok.*;
 
 /**
  *
  * @author anima
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AdministradorDto {
 
-    private Integer id;
+    private Integer id_administrador_fk;
 
-    private String nombre;
+    private String nombreAdmin;
 
-    private String correoelectronico;
+    private String correoElectronicoAdmin;
 
-    private String telefono;
+    private String telefonoAdmin;
 
-    private String nombreusuario;
+    private String nombreusuarioAdmin;
 
-    private String contrasena;
+    private String contrasenaAdmin;
 
-    private Date fecharegistro;
+    private Date fechaRegistroAdmin;
 
 }

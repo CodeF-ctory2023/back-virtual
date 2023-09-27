@@ -5,20 +5,24 @@
 package com.modulosocios.ModuloSocios.dtos;
 
 import java.util.Date;
-import lombok.Data;
+
+import lombok.*;
 
 /**
  *
  * @author anima
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SuspensionDto {
 
     private Integer id;
 
-    private Integer socioid;
+    private Integer socioId;
 
-    private Date fechahorasuspension;
+    private Date fechaHoraSuspension;
 
     private String motivo;
 }

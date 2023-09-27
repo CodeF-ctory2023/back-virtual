@@ -1,18 +1,20 @@
 package com.modulosocios.ModuloSocios.services;
 
+import com.modulosocios.ModuloSocios.dtos.SociosDto;
+import com.modulosocios.ModuloSocios.enums.EstadoVerificacionEnum;
+import com.modulosocios.ModuloSocios.mapper.SocioMapper;
 import com.modulosocios.ModuloSocios.model.Socios;
+import com.modulosocios.ModuloSocios.repository.AdministradorRepository;
 import com.modulosocios.ModuloSocios.repository.SociosRepository;
 import jakarta.transaction.Transactional;
-import static java.lang.Math.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static java.lang.StrictMath.log;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -21,22 +23,28 @@ import org.springframework.stereotype.Service;
 @Service
 @Transactional
 public class SociosServices {
+    private final SociosRepository sociosRepository;
+    private final SocioMapper socioMapper;
 
-    private SociosRepository sociosRepository;
-
+    private final AdministradorRepository administradorRepository;
     private final Logger log = LoggerFactory.getLogger(SociosServices.class);
 
-
     //Inyeccion Dependencias por Constructor
-    public SociosServices(SociosRepository sociosRepository) {
+    public SociosServices(SociosRepository sociosRepository, SocioMapper socioMapper, AdministradorRepository administradorRepository) {
         this.sociosRepository = sociosRepository;
+        this.socioMapper = socioMapper;
+        this.administradorRepository = administradorRepository;
     }
-
-    public Socios findById(Integer id) {
+    public SociosDto findById(Integer id) {
         if (Objects.isNull(id)) {
             throw new RuntimeException("ex.socios.object_not_found");
         }
-        return sociosRepository.findById(id).orElseThrow(()-> new RuntimeException("ex.socios.data_not_found"));
+        Optional<Socios> sociosOptional = this.sociosRepository.findById(id);
+        if(sociosOptional.isPresent()){
+            return this.socioMapper.toDto(sociosOptional.get());
+        }else{
+            throw new RuntimeException("ex.socios.data_not_found");
+        }
     }
     
     
@@ -56,19 +64,17 @@ public class SociosServices {
     
 
     
-    public Socios createSocios(Socios socios) {
-        if (Objects.nonNull(socios.getId())) {
-            Optional<Socios> sociosOptional = sociosRepository.findById(socios.getId());
-            if (sociosOptional.isPresent()) {
-                log.error("Datos duplicados");
-                throw new RuntimeException("Datos duplicados");
-            }
+    public Socios createSocios(Socios socios, Integer adminId) {
+        var admin = administradorRepository.findById(adminId);
+        if (admin.isEmpty()) {
+            throw new RuntimeException("Error");
         }
+        socios.setAdministrador(admin.get());
 
         try {
             return sociosRepository.save(socios);
         } catch (DataIntegrityViolationException e) {
-            throw new RuntimeException("ex.socios.data_constraint_violation");
+            throw new RuntimeException(e);
         }
     }
      public Socios updateSocios (Socios socios) {
@@ -80,7 +86,7 @@ public class SociosServices {
                 .orElseThrow(() -> new RuntimeException("ex.socios.data_not_found") );
 
         sociosTransaction.setDocumentoIdentidad(socios.getDocumentoIdentidad());
-        sociosTransaction.setCorreo_electronico(socios.getCorreo_electronico());
+        sociosTransaction.setCorreoElectronico(socios.getCorreoElectronico());
 
         return sociosTransaction;
     }
@@ -98,5 +104,16 @@ public class SociosServices {
         var sociosList = sociosRepository.findAll();
         return sociosList;
 
+    }
+
+    public Boolean changeStatusForSocio(Integer id, String status) {
+        var socio = sociosRepository.findById(id);
+        if (socio.isEmpty()) {
+            throw new RuntimeException("Socio not found");
+        }
+        var mySocio = socio.get();
+        mySocio.setEstadoVerificacion(EstadoVerificacionEnum.valueOf(status).name());
+        sociosRepository.save(mySocio);
+        return Boolean.TRUE;
     }
 }

@@ -1,13 +1,13 @@
 package com.modulosocios.ModuloSocios.controller;
 
+import com.modulosocios.ModuloSocios.dtos.SociosDto;
+import com.modulosocios.ModuloSocios.mapper.SocioMapper;
 import com.modulosocios.ModuloSocios.model.Socios;
+import com.modulosocios.ModuloSocios.services.AdministradorServices;
 import com.modulosocios.ModuloSocios.services.SociosServices;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -20,9 +20,10 @@ public class SociosController {
     private SociosServices sociosServices;
     
     //Inyectar Dependencia, para consumir FindByNAME
-
-    public SociosController(SociosServices sociosServices) {
+    private final SocioMapper socioMapper;
+    public SociosController(SociosServices sociosServices, SocioMapper socioMapper) {
         this.sociosServices = sociosServices;
+        this.socioMapper = socioMapper;
     }
     
     @GetMapping("/find-by-name/{nombre}")
@@ -39,9 +40,13 @@ public class SociosController {
     }
     
     @GetMapping("/find-id/{id}")
-    public ResponseEntity<Socios> findById(@PathVariable long id) {
-        var socio = sociosServices.findById((int)id);
-        return ResponseEntity.ok(socio);
+    public ResponseEntity<SociosDto> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok(sociosServices.findById(id));
     }
-    
+
+    @PostMapping("/create")
+    public ResponseEntity createSocios(@RequestBody SociosDto crearSocios){
+        var sociosCrear = socioMapper.toEntity(crearSocios);
+        return ResponseEntity.ok(sociosServices.createSocios(sociosCrear,crearSocios.getAdministradorId()));
+    }
 }

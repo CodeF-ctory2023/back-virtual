@@ -5,13 +5,17 @@
 package com.modulosocios.ModuloSocios.dtos;
 
 import java.util.Date;
-import lombok.Data;
+
+import lombok.*;
 
 /**
  *
  * @author anima
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class RetiroVehiculoDto {
     
     private Integer id;

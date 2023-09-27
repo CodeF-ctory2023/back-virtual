@@ -1,13 +1,15 @@
 package com.modulosocios.ModuloSocios.controller;
 
+import com.modulosocios.ModuloSocios.dtos.AdministradorDto;
+import com.modulosocios.ModuloSocios.dtos.SociosDto;
 import com.modulosocios.ModuloSocios.model.Administrador;
+import com.modulosocios.ModuloSocios.model.Socios;
 import com.modulosocios.ModuloSocios.services.AdministradorServices;
 import java.util.List;
+
+import com.modulosocios.ModuloSocios.services.SociosServices;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -19,17 +21,37 @@ public class AdministradorController {
     
        
     private AdministradorServices administradorServices;
+
+    private final SociosServices sociosServices;
     
     //Inyectar Dependencia, para consumir FindByNAME
 
-    public AdministradorController(AdministradorServices administradorServices) {
+    public AdministradorController(AdministradorServices administradorServices,
+                                   SociosServices sociosServices) {
         this.administradorServices = administradorServices;
+        this.sociosServices = sociosServices;
     }
     
-    @GetMapping("/find-by-name/{name}")
-    public ResponseEntity<List<Administrador>> findByName (@PathVariable String nombre){
-        var administrador = administradorServices.findByname(nombre);
+    @GetMapping("/find-by-name/{nombreAdmin}")
+    public ResponseEntity<List<Administrador>> findByName (@PathVariable String nombreAdmin){
+        var administrador = administradorServices.findByname(nombreAdmin);
         
         return ResponseEntity.ok(administrador);
+    }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<List<Administrador>> findAll() {
+        var administradorList = administradorServices.findAll();
+        return ResponseEntity.ok(administradorList);
+    }
+
+    @GetMapping("/find-id/{id}")
+    public ResponseEntity<AdministradorDto> findById(@PathVariable Integer id) {
+        return ResponseEntity.ok(administradorServices.findById(id));
+    }
+
+    @PutMapping("/change-socio-status")
+    public ResponseEntity changeSocioStatus(@RequestParam Integer id, @RequestParam String status) {
+        return ResponseEntity.ok(sociosServices.changeStatusForSocio(id, status));
     }
 }
