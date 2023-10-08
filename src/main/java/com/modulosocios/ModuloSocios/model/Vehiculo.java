@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  *
  * @author anima
@@ -16,7 +18,6 @@ import lombok.Data;
 public class Vehiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column (name = "id" )
     private Integer id;
     
@@ -59,8 +60,9 @@ public class Vehiculo {
     @JsonIgnore
     private Socios socios;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "vehiculo")
-    private Retirovehiculo retirovehiculo;
+    // @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "vehiculo")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "vehiculo")
+    private List<Retirovehiculo> retirovehiculo;
 
 
 }

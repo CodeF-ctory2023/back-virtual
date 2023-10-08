@@ -42,8 +42,8 @@ public class Retirovehiculo
     @Column (name = "justificacion" )
     private String justificacion;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "vehiculoid", insertable = false, updatable = false, nullable = true)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id", insertable = false, updatable = false, nullable = true)
     private Vehiculo vehiculo;
 
       
