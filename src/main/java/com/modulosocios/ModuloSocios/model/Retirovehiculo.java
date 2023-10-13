@@ -47,7 +47,7 @@ public class Retirovehiculo
     private Vehiculo vehiculo;
 
       
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
     private Socios socios;
 

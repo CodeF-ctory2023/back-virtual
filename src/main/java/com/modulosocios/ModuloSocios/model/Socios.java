@@ -65,12 +65,16 @@ public class Socios {
     private String contrasena;
 
 
-    @OneToOne(mappedBy = "socios", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "socios", cascade = CascadeType.REMOVE)
     private Vehiculo vehiculos;
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "administradorid", insertable = false, updatable = false, nullable = true)
     @JsonIgnore
     private Administrador administrador;
-    
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "socios")
+    @JsonIgnore
+    private List<Suspension> suspensiones;
+
 }
