@@ -1,10 +1,12 @@
 
 package com.modulosocios.ModuloSocios.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
-import lombok.Data;
+
+import lombok.*;
 
 /**
  *
@@ -12,7 +14,9 @@ import lombok.Data;
  */
 @Entity
 @Table (name = "suspension" )
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class Suspension {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +33,15 @@ public class Suspension {
     @Column (name = "motivo" )
     private String motivo;
     
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
+    @JsonIgnore
     private Socios socios;
+
+    public Suspension(Integer socioId, Date fechaHoraSuspension, String motivo, Socios socios) {
+        this.socioId = socioId;
+        this.fechaHoraSuspension = fechaHoraSuspension;
+        this.motivo = motivo;
+        this.socios = socios;
+    }
 }

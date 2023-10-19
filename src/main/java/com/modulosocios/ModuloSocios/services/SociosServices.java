@@ -122,7 +122,7 @@ public class SociosServices {
     @Scheduled(cron = "0 0 0 * * *")
     public void deleteNonActiveProducts() {
         log.info("BEGIN DELETION");
-        List<Socios> products = sociosRepository.findAllByEstadoVerificacion("Suspendido");
+        List<Socios> products = sociosRepository.findAllByEstadoVerificacion("Retirado");
         products.forEach(product -> sociosRepository.deleteById(product.getId()));
     }
 }

@@ -5,13 +5,14 @@
 package com.modulosocios.ModuloSocios.controller;
 
 import com.modulosocios.ModuloSocios.model.Suspension;
+import com.modulosocios.ModuloSocios.requests.SuspenderSocioRequest;
 import com.modulosocios.ModuloSocios.services.SuspensionServices;
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -32,7 +33,50 @@ public class SuspensionController {
     @GetMapping("/find-by-name/{name}")
     public ResponseEntity<List<Suspension>> findByName (@PathVariable Integer socioid){
         var suspension = suspensionServices.findByname(socioid);
-        
+        // suspenderUsuario
         return ResponseEntity.ok(suspension);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> levantarSuspension(@PathVariable Integer id) {
+        try {
+            this.suspensionServices.levantarSuspension(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception ex) {
+            return ResponseEntity.internalServerError().body("Error suspendiendo usuario");
+        }
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<?> suspenderSocio(@RequestBody SuspenderSocioRequest request){
+        try {
+            return ResponseEntity.ok(this.suspensionServices.suspenderUsuario(request.getId(), request.getMotivo()));
+        } catch (Exception ex) {
+            return ResponseEntity.internalServerError().body("Error suspendiendo usuario");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> retirarSocio(@PathVariable Integer id){
+        try {
+            this.suspensionServices.retirarSocio(id);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception ex) {
+            return ResponseEntity.internalServerError().body("Error suspendiendo usuario");
+        }
+    }
+
+    @DeleteMapping("/confirm")
+    public ResponseEntity<?> confirmarSuspensionSocio(@RequestBody SuspenderSocioRequest request){
+        var a = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        if (!a.stream().findFirst().get().getAuthority().equals("ADMIN")) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Not admin");
+        }
+        try {
+            this.suspensionServices.confirmarSuspension(request.getId());
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (Exception ex) {
+            return ResponseEntity.internalServerError().body("Error suspendiendo usuario");
+        }
     }
 }

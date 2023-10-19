@@ -4,6 +4,8 @@ package com.modulosocios.ModuloSocios.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
@@ -14,7 +16,8 @@ import java.util.List;
  */
 @Entity
 @Table (name = "socio" )
-@Data
+@Getter
+@Setter
 public class Socios {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
