@@ -119,6 +119,11 @@ public class SociosServices {
     }
 
     //Para suspender socios manualmente
+
+    /** TODO:
+     * - Configure cron for running every day at a given time
+     * - Modify method for deleting socios when given time has passed
+     */
     @Scheduled(cron = "0 0 0 * * *")
     public void deleteNonActiveProducts() {
         log.info("BEGIN DELETION");
