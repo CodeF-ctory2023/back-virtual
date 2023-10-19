@@ -119,7 +119,7 @@ public class SociosServices {
     }
 
     //Para suspender socios manualmente
-    @Scheduled(cron = "*/10 * * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void deleteNonActiveProducts() {
         log.info("BEGIN DELETION");
         List<Socios> products = sociosRepository.findAllByEstadoVerificacion("Suspendido");

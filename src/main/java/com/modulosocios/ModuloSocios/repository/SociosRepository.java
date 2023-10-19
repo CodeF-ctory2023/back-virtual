@@ -18,6 +18,8 @@ public interface SociosRepository extends JpaRepository<Socios, Integer>{
     List <Socios> findByNombreContainingIgnoreCase(String nombre);
     List <Socios> findAllByEstadoVerificacion(String estado);
 
+    Socios findByCorreoElectronico(String email);
+
     // List<Socios> findByStatusAndDeactivationTimeBefore(String status, Date dateTime);
 
 
