@@ -36,19 +36,18 @@ public class VehiculosServices {
         this.sociosRepository = sociosRepository;
     }
 
-   /* public Vehiculo createVehiculo(Vehiculo vehiculo, Integer adminId) {
+   public Vehiculo createVehiculo(Vehiculo vehiculo, Integer adminId) {
         var socio = sociosRepository.findById(adminId);
         if (socio.isEmpty()) {
             throw new RuntimeException("Error");
         }
-        vehiculo.setId_vehiculo_fk(vehiculo.getId_vehiculo_fk());
-
+        vehiculo.setSocios(socio.get());
         try {
             return vehiculosRepository.save(vehiculo);
         } catch (DataIntegrityViolationException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
 
     //lista de socios
     public List<Vehiculo> findByname(String matricula){

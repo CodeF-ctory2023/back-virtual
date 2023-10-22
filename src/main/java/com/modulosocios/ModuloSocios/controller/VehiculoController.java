@@ -46,11 +46,11 @@ public class VehiculoController {
         return ResponseEntity.ok(vehiculosServices.findById(id));
     }
 
-    /*@PostMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity createVehiculos(@RequestBody VehiculoDto crearVehiculo){
         var vehiculosCrear = vehiculoMapper.toEntity(crearVehiculo);
         return ResponseEntity.ok(vehiculosServices.createVehiculo(vehiculosCrear,crearVehiculo.getId_vehiculo_fk()));
     }
 
-*/
+
 }
