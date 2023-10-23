@@ -1,0 +1,36 @@
+name: build
+on:
+    push:
+        branches:
+        - sociosFabrica
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                java-version: ["11", "17"]
+
+        steps:
+            - uses: actions/checkout@v3
+            -   name: Configurar Java
+                uses: actions/setup-java@v3
+                with:
+                    java-version: 11
+
+            -   name: Compile with Maven
+                run: mvn -B package --file pom.xml
+
+            -   name: Ejecutar pruebas
+                run: mvn test
+
+    deploy:
+        name: Deploy
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+        -   name: Desplegar en servidor
+            run: |
+                # Como no es claro donde y como se va a desplegar, este script aún esta pendiente por terminar. 
