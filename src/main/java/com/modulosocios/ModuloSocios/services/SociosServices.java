@@ -114,9 +114,16 @@ public class SociosServices {
         return socios;
     }
 
-    public List<Socios> findAll() {
+ /*    public List<Socios> findAll() {
 
         var sociosList = sociosRepository.findAll();
+        return sociosList;
+
+    } */
+    
+    public List<SociosNueva> findAll() {
+
+        var sociosList = sociosNuevaRepository.findAll();
         return sociosList;
 
     }

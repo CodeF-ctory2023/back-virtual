@@ -39,8 +39,14 @@ public class SociosController {
         return ResponseEntity.ok(socios);
     }
 
-    @GetMapping("/find-all")
+   /*  @GetMapping("/find-all")
     public ResponseEntity<List<Socios>> findAll() {
+        var sociosList = sociosServices.findAll();
+        return ResponseEntity.ok(sociosList);
+    } */
+
+    @GetMapping("/find-all")
+    public ResponseEntity<List<SociosNueva>> findAll() {
         var sociosList = sociosServices.findAll();
         return ResponseEntity.ok(sociosList);
     }
