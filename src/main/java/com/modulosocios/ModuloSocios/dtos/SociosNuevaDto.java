@@ -27,7 +27,9 @@ public class SociosNuevaDto {
     private String telefono;
 
     private String documentoIdentidad;
+    
+    private String licenciaConducir;
 
-
+    private String pasadoJudicial;
 
 }

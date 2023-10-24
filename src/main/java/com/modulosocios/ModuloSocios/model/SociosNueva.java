@@ -15,6 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.sql.Clob;
 import java.util.Date;
 import java.util.List;
 
@@ -44,7 +45,12 @@ public class SociosNueva {
     @Column (name = "documentoidentidad" )
     private String documentoIdentidad;
 
-    
+    @Column (name = "licenciaconducir" )
+    private String licenciaConducir;
+
+    @Column (name = "pasadojudicial" )
+    private String pasadoJudicial;
+
     /* @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
     private List<Vehiculo> vehiculos;
            */
