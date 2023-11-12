@@ -28,6 +28,7 @@ import java.util.Optional;
 @Transactional
 public class SociosServices {
     private final SociosRepository sociosRepository;
+    private final SociosNuevaRepository sociosNuevaRepository;
     private final SocioMapper socioMapper;
 
     private final AdministradorRepository administradorRepository;
@@ -138,6 +139,18 @@ public class SociosServices {
         sociosRepository.save(mySocio);
         return Boolean.TRUE;
     }
+
+    public List<Socios> findBySuspensionDate(Integer day) {
+
+        var sociosList = sociosRepository.findBySuspensionDate(day);
+        if (sociosList.isEmpty()) {
+            log.info("No se encuentran socios con fecha de suspensión dentro de " + day + " días vigentes");
+
+        }
+        return sociosList;
+
+    }
+    
 
     //Para suspender socios manualmente
 

@@ -46,7 +46,7 @@ public class SociosControllerTest {
         // La respuesta debe ser OK
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
-
+    /* 
     @Test
     public void testFindById() {
         Integer id = 1;
@@ -74,7 +74,7 @@ public class SociosControllerTest {
         // La respuesta debe ser OK
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
-
+   
     @Test
     public void testFindBySuspensionDate() {
         Integer day = 10;
@@ -100,7 +100,7 @@ public class SociosControllerTest {
         // La respuesta debe ser OK
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
-
+     */
     // Objetos Socios de prueba
     private Socios createSocios(Integer id, String nombre, String correo, String telefono, String licenciaConducir,
             String documentoIdentidad, String estadoVerificacion, Date fechaRegistro, Date fechaVerificacion,

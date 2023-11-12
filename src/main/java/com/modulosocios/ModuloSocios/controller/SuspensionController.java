@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 /*
  *
@@ -33,6 +33,7 @@ public class SuspensionController {
         return ResponseEntity.ok(suspension);
     }
 
+     /*
     @PutMapping("/{id}")
     public ResponseEntity<?> levantarSuspension(@PathVariable Integer id) {
         ResponseEntity<String> FORBIDDEN = verifyIfUserIsAdmin();
@@ -79,7 +80,7 @@ public class SuspensionController {
             return ResponseEntity.internalServerError().body("Error suspendiendo usuario");
         }
     }
-
+   
     private static ResponseEntity<String> verifyIfUserIsAdmin() {
         var a = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         if (!a.stream().findFirst().get().getAuthority().equals("ADMIN")) {
@@ -87,5 +88,6 @@ public class SuspensionController {
         }
         return null;
     }
+     */
 
 }
