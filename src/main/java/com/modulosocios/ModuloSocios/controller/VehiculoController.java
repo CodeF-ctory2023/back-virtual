@@ -1,6 +1,5 @@
 package com.modulosocios.ModuloSocios.controller;
 
-
 import com.modulosocios.ModuloSocios.dtos.VehiculoDto;
 import com.modulosocios.ModuloSocios.mapper.VehiculoMapper;
 import com.modulosocios.ModuloSocios.model.Vehiculo;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/vehiculo")
 public class VehiculoController {
     
-    
     private VehiculosServices vehiculosServices;
     private final VehiculoMapper vehiculoMapper;
     
@@ -30,11 +28,12 @@ public class VehiculoController {
     
     @GetMapping("/find-by-name/{matricula}")
     public ResponseEntity<List<Vehiculo>> buscarPorMatricula (@PathVariable  String matricula){
-            
+
         var vehiculos = vehiculosServices.findByname(matricula);
 
         return ResponseEntity.ok(vehiculos);
     }
+
     @GetMapping("/find-all")
     public ResponseEntity<List<Vehiculo>> findAll() {
         var vehiculosList = vehiculosServices.findAll();
@@ -51,6 +50,4 @@ public class VehiculoController {
         var vehiculosCrear = vehiculoMapper.toEntity(crearVehiculo);
         return ResponseEntity.ok(vehiculosServices.createVehiculo(vehiculosCrear,crearVehiculo.getId_vehiculo_fk()));
     }
-
-
 }

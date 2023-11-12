@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.modulosocios.ModuloSocios.controller;
 
 import com.modulosocios.ModuloSocios.model.Suspension;
@@ -13,8 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-/**
+/*
  *
  * @author anima
  */
@@ -33,6 +28,7 @@ public class SuspensionController {
     @GetMapping("/find-by-name/{name}")
     public ResponseEntity<List<Suspension>> findByName (@PathVariable Integer socioid){
         var suspension = suspensionServices.findByname(socioid);
+
         // suspenderUsuario
         return ResponseEntity.ok(suspension);
     }
@@ -91,4 +87,5 @@ public class SuspensionController {
         }
         return null;
     }
+
 }

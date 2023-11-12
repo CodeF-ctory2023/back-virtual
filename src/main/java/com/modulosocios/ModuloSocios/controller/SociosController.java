@@ -50,10 +50,12 @@ public class SociosController {
         return ResponseEntity.ok(sociosServices.createSocios(sociosCrear,crearSocios.getAdministradorId()));
     }
 
+
     @GetMapping("/find-by-suspension-date/{day}")
     public ResponseEntity<List<Socios>>  findBySuspensionDate(@PathVariable Integer day){
         var sociosList = sociosServices.findBySuspensionDate(day);
         return ResponseEntity.ok(sociosList);
     }
     
+
 }
