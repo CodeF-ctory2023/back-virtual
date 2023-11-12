@@ -23,7 +23,6 @@ public interface SociosRepository extends JpaRepository<Socios, Integer>{
 
     Socios findByCorreoElectronico(String email);
 
-    // List<Socios> findByStatusAndDeactivationTimeBefore(String status, Date dateTime);
 
     @Query(value = "SELECT * " +
                "FROM SOCIO " +

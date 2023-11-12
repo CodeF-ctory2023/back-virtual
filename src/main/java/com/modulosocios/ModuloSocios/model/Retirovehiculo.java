@@ -41,15 +41,15 @@ public class Retirovehiculo
     
     @Column (name = "justificacion" )
     private String justificacion;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", insertable = false, updatable = false, nullable = true)
+    
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "vehiculoid", insertable = false, updatable = false, nullable = true)
     private Vehiculo vehiculo;
-
+   
       
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
     private Socios socios;
-
-
+    
+   
 }

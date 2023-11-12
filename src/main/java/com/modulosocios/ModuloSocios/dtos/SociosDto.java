@@ -29,7 +29,7 @@ public class SociosDto {
     private String licenciaConducir;
 
     private String documentoIdentidad;
-
+    
     private String estadoVerificacion;
 
     private Date fechaRegistro;

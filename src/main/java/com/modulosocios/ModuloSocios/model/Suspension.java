@@ -14,9 +14,7 @@ import lombok.*;
  */
 @Entity
 @Table (name = "suspension" )
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class Suspension {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
