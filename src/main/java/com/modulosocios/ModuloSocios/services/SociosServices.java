@@ -107,6 +107,18 @@ public class SociosServices {
 
     }
 
+    public List<Socios> findBySuspensionDate(Integer day) {
+
+        var sociosList = sociosRepository.findBySuspensionDate(day);
+        if (sociosList.isEmpty()) {
+            log.info("No se encuentran socios con fecha de suspensión dentro de " + day + " días vigentes");
+
+        }
+        return sociosList;
+
+    }
+    
+
     public Boolean changeStatusForSocio(Integer id, String status) {
         var socio = sociosRepository.findById(id);
         if (socio.isEmpty()) {

@@ -6,6 +6,8 @@ package com.modulosocios.ModuloSocios.dtos;
 
 import java.util.Date;
 
+import com.modulosocios.ModuloSocios.model.Administrador;
+
 import lombok.*;
 
 /**
@@ -17,6 +19,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdministradorDto {
+    public AdministradorDto(Administrador administrador) {
+    }
+    
 
     private Integer id_administrador_fk;
 

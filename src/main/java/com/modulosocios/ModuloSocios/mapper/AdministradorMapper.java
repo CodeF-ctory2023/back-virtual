@@ -7,9 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface AdministradorMapper {
-    Administrador toEntity(final Administrador administradorDto);
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    AdministradorDto toDto(final Administrador administrador);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)//Control para los campos nulos
+    Administrador toEntity(final Administrador administradorDto);//Mapeo de DTO a entidad
+    AdministradorDto toDto(final Administrador administrador);//Mapeo de entidad a DTO 
 }

@@ -8,9 +8,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper (unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
+@Mapper(componentModel = "spring")
 public interface SocioMapper {
-    Socios toEntity(final SociosDto sociosDto);
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    SociosDto toDto(final Socios socios);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)//Control para los campos nulos
+    Socios toEntity(final SociosDto sociosDto);//Mapeo de DTO a entidad
+    SociosDto toDto(final Socios socios);//Mapeo de entidad a DTO 
 }
