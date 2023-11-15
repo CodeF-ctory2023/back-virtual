@@ -26,7 +26,7 @@ import java.util.List;
 @Entity
 @Table (name = "socio" )
 @Data
-public class SociosNueva {
+public class SocioSimple {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     
@@ -50,6 +50,9 @@ public class SociosNueva {
 
     @Column (name = "pasadojudicial" )
     private String pasadoJudicial;
+
+    @Column (name = "foto" )
+    private String foto;
 
     /* @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
     private List<Vehiculo> vehiculos;

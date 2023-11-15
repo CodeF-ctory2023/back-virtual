@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * @author anima
  */
 @Repository
-public interface VehiculosRepository extends JpaRepository<Vehiculo, Integer>{
+public interface VehiculoRepository extends JpaRepository<Vehiculo, Integer>{
     
     List <Vehiculo> findByMatriculaStartingWith(String  matricula);
 

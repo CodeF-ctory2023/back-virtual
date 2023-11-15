@@ -1,6 +1,6 @@
 package com.modulosocios.ModuloSocios.repository;
 
-import com.modulosocios.ModuloSocios.model.Socios;
+import com.modulosocios.ModuloSocios.model.Socio;
 
 import java.util.Date;
 import java.util.List;
@@ -16,12 +16,12 @@ import org.springframework.stereotype.Repository;
  */
 
 
-public interface SociosRepository extends JpaRepository<Socios, Integer>{
+public interface SocioRepository extends JpaRepository<Socio, Integer>{
     
-    List <Socios> findByNombreContainingIgnoreCase(String nombre);
-    List <Socios> findAllByEstadoVerificacion(String estado);
+    List <Socio> findByNombreContainingIgnoreCase(String nombre);
+    List <Socio> findAllByEstadoVerificacion(String estado);
 
-    Socios findByCorreoElectronico(String email);
+    Socio findByCorreoElectronico(String email);
 
 
     @Query(value = "SELECT * " +
@@ -30,6 +30,6 @@ public interface SociosRepository extends JpaRepository<Socios, Integer>{
                "AND TRUNC(fechasuspension) >= TRUNC(SYSDATE) - :day " +
                "AND TRUNC(fechasuspension) <= TRUNC(SYSDATE)",
        nativeQuery = true)
-List<Socios> findBySuspensionDate(@Param("day") Integer day);
+List<Socio> findBySuspensionDate(@Param("day") Integer day);
 }
 

@@ -34,9 +34,9 @@ public class Suspension {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
     @JsonIgnore
-    private Socios socios;
+    private Socio socios;
 
-    public Suspension(Integer socioId, Date fechaHoraSuspension, String motivo, Socios socios) {
+    public Suspension(Integer socioId, Date fechaHoraSuspension, String motivo, Socio socios) {
         this.socioId = socioId;
         this.fechaHoraSuspension = fechaHoraSuspension;
         this.motivo = motivo;

@@ -3,7 +3,7 @@ package com.modulosocios.ModuloSocios.controller;
 import com.modulosocios.ModuloSocios.dtos.AdministradorDto;
 import com.modulosocios.ModuloSocios.model.Administrador;
 import com.modulosocios.ModuloSocios.services.AdministradorServices;
-import com.modulosocios.ModuloSocios.services.SociosServices;
+import com.modulosocios.ModuloSocios.services.SocioServices;
 import com.modulosocios.ModuloSocios.enums.EstadoVerificacionEnum;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class AdministradoresControllerTest {
     private AdministradorServices administradorServices;
     private AdministradorController controller;
     // private SociosServices sociosServices;
-    private SociosServices mockSociosServices = mock(SociosServices.class);
+    private SocioServices mockSociosServices = mock(SocioServices.class);
     
     @Before
     public void setUp() {

@@ -3,7 +3,7 @@ package com.modulosocios.ModuloSocios.controller;
 import com.modulosocios.ModuloSocios.dtos.VehiculoDto;
 import com.modulosocios.ModuloSocios.mapper.VehiculoMapper;
 import com.modulosocios.ModuloSocios.model.Vehiculo;
-import com.modulosocios.ModuloSocios.services.VehiculosServices;
+import com.modulosocios.ModuloSocios.services.VehiculoServices;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/vehiculo")
 public class VehiculoController {
     
-    private VehiculosServices vehiculosServices;
+    private VehiculoServices vehiculosServices;
     private final VehiculoMapper vehiculoMapper;
     
     //Inyectar Dependencia, para consumir FindByNAME
 
-    public VehiculoController(VehiculosServices vehiculosServices, VehiculoMapper vehiculoMapper) {
+    public VehiculoController(VehiculoServices vehiculosServices, VehiculoMapper vehiculoMapper) {
         this.vehiculosServices = vehiculosServices;
         this.vehiculoMapper = vehiculoMapper;
     }
@@ -50,4 +50,14 @@ public class VehiculoController {
         var vehiculosCrear = vehiculoMapper.toEntity(crearVehiculo);
         return ResponseEntity.ok(vehiculosServices.createVehiculo(vehiculosCrear,crearVehiculo.getId_vehiculo_fk()));
     }
+
+    /*
+    
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteVehiculo(){
+        
+    }
+
+     */
+
 }

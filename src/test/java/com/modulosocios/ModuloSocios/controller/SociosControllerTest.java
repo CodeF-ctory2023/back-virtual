@@ -1,9 +1,9 @@
 package com.modulosocios.ModuloSocios.controller;
 
-import com.modulosocios.ModuloSocios.dtos.SociosDto;
+import com.modulosocios.ModuloSocios.dtos.SocioDto;
 import com.modulosocios.ModuloSocios.mapper.SocioMapper;
-import com.modulosocios.ModuloSocios.model.Socios;
-import com.modulosocios.ModuloSocios.services.SociosServices;
+import com.modulosocios.ModuloSocios.model.Socio;
+import com.modulosocios.ModuloSocios.services.SocioServices;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,24 +25,24 @@ import java.util.List;
 public class SociosControllerTest {
 
     @MockBean
-    private SociosServices sociosServices;
-    private SociosController controller;
+    private SocioServices sociosServices;
+    private SocioController controller;
     private SocioMapper socioMapper = mock(SocioMapper.class);;
 
     @Before
     public void setUp() {
-        controller = new SociosController(sociosServices, socioMapper);
+        controller = new SocioController(sociosServices, socioMapper);
     }
 
     @Test
     public void testFindByName() {
         String nombre = "Socio1";
-        List<Socios> sociosList = List.of(
+        List<Socio> sociosList = List.of(
                 createSocios(1, nombre, "socio1@example.com", "123456789", "Licencia1", "ID1",
                         "Verificado", new Date(), null, null, null, true, "correo1@example.com", 1, "contrasena1"));
 
         when(sociosServices.findByName(nombre)).thenReturn(sociosList);
-        ResponseEntity<List<Socios>> response = controller.findByName(nombre);
+        ResponseEntity<List<Socio>> response = controller.findByName(nombre);
         // La respuesta debe ser OK
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
@@ -102,11 +102,11 @@ public class SociosControllerTest {
     }
      */
     // Objetos Socios de prueba
-    private Socios createSocios(Integer id, String nombre, String correo, String telefono, String licenciaConducir,
+    private Socio createSocios(Integer id, String nombre, String correo, String telefono, String licenciaConducir,
             String documentoIdentidad, String estadoVerificacion, Date fechaRegistro, Date fechaVerificacion,
             Date fechaSuspension, String motivoSuspension, Boolean pendienteDeVerificacion, String correoNotificacion,
             Integer administradorId, String contrasena) {
-        Socios socios = new Socios();
+        Socio socios = new Socio();
         socios.setId(id);
         socios.setNombre(nombre);
         socios.setCorreoElectronico(correo);
@@ -126,7 +126,7 @@ public class SociosControllerTest {
         return socios;
     }
 
-    private SociosDto createSociosDto(Integer id, String nombre, String correo, String telefono,
+    private SocioDto createSociosDto(Integer id, String nombre, String correo, String telefono,
             String licenciaConducir,
             String documentoIdentidad, String estadoVerificacion, Date fechaRegistro, Date fechaVerificacion,
             Date fechaSuspension, String motivoSuspension, Boolean pendienteDeVerificacion, String correoNotificacion,

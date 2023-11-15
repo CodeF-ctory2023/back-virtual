@@ -49,7 +49,7 @@ public class Retirovehiculo
       
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
-    private Socios socios;
+    private Socio socios;
     
    
 }

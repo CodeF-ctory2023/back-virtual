@@ -59,7 +59,7 @@ public class Vehiculo {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id", insertable = false, updatable = true, nullable = true)
     @JsonIgnore
-    private Socios socios;
+    private Socio socios;
 
     // @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "vehiculo")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "vehiculo")

@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SociosDto {
+public class SocioDto {
 
     private Integer id;
 

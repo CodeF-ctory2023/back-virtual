@@ -54,7 +54,7 @@ public class Administrador
     @JsonBackReference
     @OneToMany(mappedBy = "administrador")
     @JsonIgnore
-    private List<Socios> socios;
+    private List<Socio> socios;
     //private List<Vehiculo> vehiculo;
 }
 

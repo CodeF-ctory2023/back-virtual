@@ -1,14 +1,14 @@
 package com.modulosocios.ModuloSocios.services;
 
-import com.modulosocios.ModuloSocios.dtos.SociosDto;
-import com.modulosocios.ModuloSocios.dtos.SociosNuevaDto;
+import com.modulosocios.ModuloSocios.dtos.SocioDto;
+import com.modulosocios.ModuloSocios.dtos.SocioSimpleDto;
 import com.modulosocios.ModuloSocios.enums.EstadoVerificacionEnum;
 import com.modulosocios.ModuloSocios.mapper.SocioMapper;
-import com.modulosocios.ModuloSocios.model.Socios;
-import com.modulosocios.ModuloSocios.model.SociosNueva;
+import com.modulosocios.ModuloSocios.model.Socio;
+import com.modulosocios.ModuloSocios.model.SocioSimple;
 import com.modulosocios.ModuloSocios.repository.AdministradorRepository;
-import com.modulosocios.ModuloSocios.repository.SociosNuevaRepository;
-import com.modulosocios.ModuloSocios.repository.SociosRepository;
+import com.modulosocios.ModuloSocios.repository.SocioSimpleRepository;
+import com.modulosocios.ModuloSocios.repository.SocioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,27 +26,27 @@ import java.util.Optional;
  */
 @Service
 @Transactional
-public class SociosServices {
-    private final SociosRepository sociosRepository;
-    private final SociosNuevaRepository sociosNuevaRepository;
+public class SocioServices {
+    private final SocioRepository sociosRepository;
+    private final SocioSimpleRepository sociosNuevaRepository;
     private final SocioMapper socioMapper;
 
     private final AdministradorRepository administradorRepository;
-    private final Logger log = LoggerFactory.getLogger(SociosServices.class);
+    private final Logger log = LoggerFactory.getLogger(SocioServices.class);
 
     //Inyeccion Dependencias por Constructor
-    public SociosServices(SociosRepository sociosRepository, SocioMapper socioMapper, AdministradorRepository administradorRepository, SociosNuevaRepository sociosNuevaRepository ) {
+    public SocioServices(SocioRepository sociosRepository, SocioMapper socioMapper, AdministradorRepository administradorRepository, SocioSimpleRepository sociosNuevaRepository ) {
         this.sociosRepository = sociosRepository;
         this.socioMapper = socioMapper;
         this.administradorRepository = administradorRepository;
         this.sociosNuevaRepository = sociosNuevaRepository;
     }
 
-    public SociosNuevaDto findById(Integer id) {
+    public SocioSimpleDto findById(Integer id) {
         if (Objects.isNull(id)) {
             throw new RuntimeException("ex.socios.object_not_found");
         }
-        Optional<SociosNueva> sociosOptional = this.sociosNuevaRepository.findById(id);
+        Optional<SocioSimple> sociosOptional = this.sociosNuevaRepository.findById(id);
         if(sociosOptional.isPresent()){
             return this.socioMapper.toDto(sociosOptional.get());
         }else{
@@ -59,7 +59,7 @@ public class SociosServices {
     
     public void deleteSocios(Integer sociosId) {
         if (Objects.nonNull(sociosId)) {
-            Optional<Socios> sociosOptional = sociosRepository.findById(sociosId);
+            Optional<Socio> sociosOptional = sociosRepository.findById(sociosId);
             if (!sociosOptional.isPresent()) {
                 throw new RuntimeException("ex.student.data_not_found");
             }
@@ -84,7 +84,7 @@ public class SociosServices {
             throw new RuntimeException(e);
         }
     } */
-    public SociosNueva createSocios(SociosNueva sociosCrear ) {
+    public SocioSimple createSocios(SocioSimple sociosCrear ) {
         
         try {
             return sociosNuevaRepository.save(sociosCrear);
@@ -93,7 +93,7 @@ public class SociosServices {
         }
     }
     
-     public Socios updateSocios (Socios socios) {
+     public Socio updateSocios (Socio socios) {
         if (Objects.isNull(socios.getId())){
             throw new RuntimeException("ex.student.object_not_found");
         }
@@ -109,7 +109,7 @@ public class SociosServices {
 
 
     //lista de socios
-    public List<Socios> findByName(String nombre) {
+    public List<Socio> findByName(String nombre) {
         var socios = sociosRepository.findByNombreContainingIgnoreCase(nombre);
 
         return socios;
@@ -122,7 +122,7 @@ public class SociosServices {
 
     } */
     
-    public List<SociosNueva> findAll() {
+    public List<SocioSimple> findAll() {
 
         var sociosList = sociosNuevaRepository.findAll();
         return sociosList;
@@ -140,7 +140,7 @@ public class SociosServices {
         return Boolean.TRUE;
     }
 
-    public List<Socios> findBySuspensionDate(Integer day) {
+    public List<Socio> findBySuspensionDate(Integer day) {
 
         var sociosList = sociosRepository.findBySuspensionDate(day);
         if (sociosList.isEmpty()) {
@@ -161,7 +161,7 @@ public class SociosServices {
     @Scheduled(cron = "0 0 0 * * *")
     public void deleteNonActiveProducts() {
         log.info("BEGIN DELETION");
-        List<Socios> products = sociosRepository.findAllByEstadoVerificacion("Retirado");
+        List<Socio> products = sociosRepository.findAllByEstadoVerificacion("Retirado");
         products.forEach(product -> sociosRepository.deleteById(product.getId()));
     }
 }

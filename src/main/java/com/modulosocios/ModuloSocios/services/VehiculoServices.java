@@ -4,9 +4,9 @@ package com.modulosocios.ModuloSocios.services;
 import com.modulosocios.ModuloSocios.dtos.VehiculoDto;
 import com.modulosocios.ModuloSocios.mapper.VehiculoMapper;
 import com.modulosocios.ModuloSocios.model.Vehiculo;
-import com.modulosocios.ModuloSocios.model.Socios;
-import com.modulosocios.ModuloSocios.repository.SociosRepository;
-import com.modulosocios.ModuloSocios.repository.VehiculosRepository;
+import com.modulosocios.ModuloSocios.model.Socio;
+import com.modulosocios.ModuloSocios.repository.SocioRepository;
+import com.modulosocios.ModuloSocios.repository.VehiculoRepository;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,18 +19,18 @@ import org.springframework.stereotype.Service;
  * @author anima
  */
 @Service
-public class VehiculosServices {
+public class VehiculoServices {
     
      
-    private final VehiculosRepository vehiculosRepository;
+    private final VehiculoRepository vehiculosRepository;
     private final VehiculoMapper vehiculoMapper;
-    private final SociosRepository sociosRepository;
+    private final SocioRepository sociosRepository;
 
 
 
 
     //Inyeccion Dependencias por Constructor
-    public VehiculosServices(VehiculosRepository vehiculosRepository, VehiculoMapper vehiculoMapper, SociosRepository sociosRepository){
+    public VehiculoServices(VehiculoRepository vehiculosRepository, VehiculoMapper vehiculoMapper, SocioRepository sociosRepository){
         this.vehiculosRepository = vehiculosRepository;
         this.vehiculoMapper = vehiculoMapper;
         this.sociosRepository = sociosRepository;
@@ -41,7 +41,9 @@ public class VehiculosServices {
         if (socio.isEmpty()) {
             throw new RuntimeException("Error");
         }
+
         vehiculo.setSocios(socio.get());
+
         try {
             return vehiculosRepository.save(vehiculo);
         } catch (DataIntegrityViolationException e) {

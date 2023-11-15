@@ -1,13 +1,13 @@
 package com.modulosocios.ModuloSocios.controller;
 
 import com.modulosocios.ModuloSocios.dtos.AdministradorDto;
-import com.modulosocios.ModuloSocios.dtos.SociosDto;
+import com.modulosocios.ModuloSocios.dtos.SocioDto;
 import com.modulosocios.ModuloSocios.model.Administrador;
-import com.modulosocios.ModuloSocios.model.Socios;
+import com.modulosocios.ModuloSocios.model.Socio;
 import com.modulosocios.ModuloSocios.services.AdministradorServices;
 import java.util.List;
 
-import com.modulosocios.ModuloSocios.services.SociosServices;
+import com.modulosocios.ModuloSocios.services.SocioServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +22,12 @@ public class AdministradorController {
        
     private AdministradorServices administradorServices;
 
-    private final SociosServices sociosServices;
+    private final SocioServices sociosServices;
     
     //Inyectar Dependencia, para consumir FindByNAME
 
     public AdministradorController(AdministradorServices administradorServices,
-                                   SociosServices sociosServices) {
+                                   SocioServices sociosServices) {
         this.administradorServices = administradorServices;
         this.sociosServices = sociosServices;
     }

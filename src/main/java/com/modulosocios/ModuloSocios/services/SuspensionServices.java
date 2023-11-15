@@ -1,8 +1,8 @@
 package com.modulosocios.ModuloSocios.services;
 
-import com.modulosocios.ModuloSocios.model.Socios;
+import com.modulosocios.ModuloSocios.model.Socio;
 import com.modulosocios.ModuloSocios.model.Suspension;
-import com.modulosocios.ModuloSocios.repository.SociosRepository;
+import com.modulosocios.ModuloSocios.repository.SocioRepository;
 import com.modulosocios.ModuloSocios.repository.SuspensionRepository;
 
 import java.util.Date;
@@ -19,11 +19,11 @@ public class SuspensionServices {
     
     private SuspensionRepository suspensionRepository;
 
-    private final SociosRepository sociosRepository;
+    private final SocioRepository sociosRepository;
     
     //Inyeccion Dependencias por Constructor
     public SuspensionServices(SuspensionRepository suspensionRepository,
-                              SociosRepository sociosRepository){
+                              SocioRepository sociosRepository){
         this.suspensionRepository = suspensionRepository;
         this.sociosRepository = sociosRepository;
     }
@@ -37,7 +37,7 @@ public class SuspensionServices {
     }
 
     public Suspension suspenderUsuario(Integer socioid, String motivo) throws IllegalAccessException {
-        Socios socio = getSocio(socioid);
+        Socio socio = getSocio(socioid);
         var suspension = new Suspension(socio.getId(), new Date(), motivo, socio);
         this.suspensionRepository.save(suspension);
         return suspension;
@@ -52,13 +52,13 @@ public class SuspensionServices {
     }
 
     public void retirarSocio(Integer id) throws IllegalAccessException {
-        Socios socio = getSocio(id);
+        Socio socio = getSocio(id);
         socio.setEstadoVerificacion("Retirado");
         socio.setFechaSuspension(new Date());
         this.sociosRepository.save(socio);
     }
 
-    private Socios getSocio(Integer id) throws IllegalAccessException {
+    private Socio getSocio(Integer id) throws IllegalAccessException {
         var socioOpt = this.sociosRepository.findById(id);
         if (socioOpt.isEmpty()) {
             throw new IllegalAccessException("Socio consultado no existe");
