@@ -1,12 +1,7 @@
-
 package com.modulosocios.ModuloSocios.dtos;
 
 import lombok.*;
 
-/**
- *
- * @author anima
- */
 @Getter
 @Setter
 @AllArgsConstructor

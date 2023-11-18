@@ -1,18 +1,15 @@
 package com.modulosocios.ModuloSocios.repository;
 
-import com.modulosocios.ModuloSocios.model.Retirovehiculo;
+import com.modulosocios.ModuloSocios.model.RetiroVehiculo;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-
-/**
- *
- * @author anima
- */
 @Repository
-public interface RetiroVehiculoRepository extends JpaRepository<Retirovehiculo, Integer>{
-    
-       List<Retirovehiculo> findByVehiculoId(Integer vehiculoId);
+public interface RetiroVehiculoRepository extends JpaRepository<RetiroVehiculo, Integer> {
+
+       List<RetiroVehiculo> findByVehiculoId(Integer vehiculoId);
 
 }

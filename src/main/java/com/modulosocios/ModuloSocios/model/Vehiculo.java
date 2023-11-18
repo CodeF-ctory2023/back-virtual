@@ -1,4 +1,3 @@
-
 package com.modulosocios.ModuloSocios.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -23,7 +22,7 @@ public class Vehiculo {
     private Integer id;
     
     @Column (name = "socioid" )
-    private Integer id_vehiculo_fk;
+    private Integer socioid;
     
     @Column (name = "marca" )
     private String marca;
@@ -55,15 +54,13 @@ public class Vehiculo {
     @Column (name = "adjuntodocumentos" )
     private String adjuntoDocumentos;
 
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", insertable = false, updatable = true, nullable = true)
+    
+    @OneToOne
+    @JoinColumn(name = "socioid", unique = true, insertable = false, updatable = false)
     @JsonIgnore
-    private Socio socios;
+    private Socio socio;
 
-    // @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "vehiculo")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "vehiculo")
-    private List<Retirovehiculo> retirovehiculo;
-
-
+    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private List<RetiroVehiculo> retiros;
 }

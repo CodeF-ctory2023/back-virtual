@@ -1,6 +1,5 @@
 package com.modulosocios.ModuloSocios.mapper;
 
-
 import com.modulosocios.ModuloSocios.dtos.VehiculoDto;
 import com.modulosocios.ModuloSocios.model.Vehiculo;
 import org.mapstruct.BeanMapping;

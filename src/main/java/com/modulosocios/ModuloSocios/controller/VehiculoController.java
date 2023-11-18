@@ -8,26 +8,22 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- *
- * @author anima
- */
 @RestController
 @RequestMapping("/vehiculo")
 public class VehiculoController {
-    
+
     private VehiculoServices vehiculosServices;
     private final VehiculoMapper vehiculoMapper;
-    
-    //Inyectar Dependencia, para consumir FindByNAME
+
+    // Inyectar Dependencia, para consumir FindByNAME
 
     public VehiculoController(VehiculoServices vehiculosServices, VehiculoMapper vehiculoMapper) {
         this.vehiculosServices = vehiculosServices;
         this.vehiculoMapper = vehiculoMapper;
     }
-    
+
     @GetMapping("/find-by-name/{matricula}")
-    public ResponseEntity<List<Vehiculo>> buscarPorMatricula (@PathVariable  String matricula){
+    public ResponseEntity<List<Vehiculo>> buscarPorMatricula(@PathVariable String matricula) {
 
         var vehiculos = vehiculosServices.findByname(matricula);
 
@@ -45,19 +41,15 @@ public class VehiculoController {
         return ResponseEntity.ok(vehiculosServices.findById(id));
     }
 
-    @PostMapping("/create")
-    public ResponseEntity createVehiculos(@RequestBody VehiculoDto crearVehiculo){
-        var vehiculosCrear = vehiculoMapper.toEntity(crearVehiculo);
-        return ResponseEntity.ok(vehiculosServices.createVehiculo(vehiculosCrear,crearVehiculo.getId_vehiculo_fk()));
+    @PostMapping("/create/{socioId}")
+    public ResponseEntity createVehiculo(@RequestBody Vehiculo vehiculo, @PathVariable Integer socioId) {
+        return ResponseEntity.ok(vehiculosServices.createVehiculo(vehiculo, socioId));
     }
 
-    /*
-    
-    @DeleteMapping("/delete")
-    public ResponseEntity deleteVehiculo(){
-        
+    @DeleteMapping("/delete/{socioid}")
+    public ResponseEntity<String> deleteVehiculo(@PathVariable Integer vehiculoId) {
+        vehiculosServices.deleteVehiculo(vehiculoId);
+        return ResponseEntity.noContent().build();
     }
-
-     */
 
 }

@@ -3,11 +3,16 @@ package com.modulosocios.ModuloSocios.enums;
 public enum EstadoVerificacionEnum {
     PENDIENTE("PENDIENTE"),
     SUSPENDIDO("SUSPENDIDO"),
-    ACEPTADO("ACEPTADO");
+    ACEPTADO("ACEPTADO"),
+    RETIRADO("RETIRADO");
 
-    String estado;
+    private String estado;
 
     EstadoVerificacionEnum(String estado) {
         this.estado = estado;
+    }
+
+    public String getEstado() {
+        return estado;
     }
 }

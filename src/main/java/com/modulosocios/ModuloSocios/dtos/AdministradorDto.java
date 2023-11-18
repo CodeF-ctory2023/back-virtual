@@ -4,10 +4,6 @@ import java.util.Date;
 import com.modulosocios.ModuloSocios.model.Administrador;
 import lombok.*;
 
-/**
- *
- * @author anima
- */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,7 +11,7 @@ import lombok.*;
 public class AdministradorDto {
     public AdministradorDto(Administrador administrador) {
     }
-    
+
     private Integer id_administrador_fk;
 
     private String nombreAdmin;

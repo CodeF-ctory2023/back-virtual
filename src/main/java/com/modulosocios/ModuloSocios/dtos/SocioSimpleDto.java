@@ -8,10 +8,6 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author anima
- */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,10 +22,16 @@ public class SocioSimpleDto {
 
     private String telefono;
 
+    private String ciudad;
+
     private String documentoIdentidad;
-    
+
+    private String estadoVerificacion;
+
     private String licenciaConducir;
 
     private String pasadoJudicial;
+
+    private String foto;
 
 }

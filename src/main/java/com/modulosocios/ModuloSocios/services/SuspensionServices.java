@@ -1,5 +1,6 @@
 package com.modulosocios.ModuloSocios.services;
 
+import com.modulosocios.ModuloSocios.enums.EstadoVerificacionEnum;
 import com.modulosocios.ModuloSocios.model.Socio;
 import com.modulosocios.ModuloSocios.model.Suspension;
 import com.modulosocios.ModuloSocios.repository.SocioRepository;
@@ -7,55 +8,82 @@ import com.modulosocios.ModuloSocios.repository.SuspensionRepository;
 
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author anima
- */
 @Service
-
 public class SuspensionServices {
-    
-    private SuspensionRepository suspensionRepository;
+
+    private final SuspensionRepository suspensionRepository;
 
     private final SocioRepository sociosRepository;
-    
-    //Inyeccion Dependencias por Constructor
+
     public SuspensionServices(SuspensionRepository suspensionRepository,
-                              SocioRepository sociosRepository){
+            SocioRepository sociosRepository) {
         this.suspensionRepository = suspensionRepository;
         this.sociosRepository = sociosRepository;
     }
-    
-    
-    //lista de socios
-    public List<Suspension> findByname(Integer socioid){
+
+    public List<Suspension> findBySocioId(Integer socioid) {
         var suspension = suspensionRepository.findBySocioId(socioid);
-        
+
         return suspension;
     }
 
-    public Suspension suspenderUsuario(Integer socioid, String motivo) throws IllegalAccessException {
-        Socio socio = getSocio(socioid);
-        var suspension = new Suspension(socio.getId(), new Date(), motivo, socio);
-        this.suspensionRepository.save(suspension);
-        return suspension;
+    public Suspension suspenderSocio(Suspension suspension, Integer idSocio) throws IllegalAccessException {
+        Socio socio = getSocio(idSocio);
+
+        suspension.setSocio(socio);
+        suspension.setSocioId(socio.getId());
+        suspension.setFechaHoraSuspension(new Date());
+
+        // Estableciendo socio en estado de suspension
+        socio.setEstadoVerificacion(EstadoVerificacionEnum.SUSPENDIDO.getEstado());
+        socio.setFechaSuspension(new Date());
+        socio.setMotivoSuspension(suspension.getMotivo());
+
+        sociosRepository.save(socio);
+
+        return suspensionRepository.save(suspension);
+
     }
 
-    public void confirmarSuspension(Integer suspensionId) throws IllegalAccessException {
-        Suspension suspension = getSuspension(suspensionId);
-        var socio = suspension.getSocios();
-        socio.setEstadoVerificacion("Suspendido");
-        socio.setFechaSuspension(new Date());
-        this.sociosRepository.save(socio);
+    public ResponseEntity<Object> levantarSuspension(Integer idSuspension) throws IllegalAccessException {
+
+        Suspension suspension = getSuspension(idSuspension);
+        Socio socio = getSocio(suspension.getSocioId());
+
+        suspensionRepository.delete(suspension);
+
+        List<Suspension> suspensiones = findBySocioId(socio.getId());
+        String response = "Suspension eliminada con exito";
+
+        if (suspensiones.isEmpty()) {
+
+            socio.setEstadoVerificacion(EstadoVerificacionEnum.ACEPTADO.getEstado());
+            socio.setFechaSuspension(null);
+            socio.setMotivoSuspension("");
+
+            this.sociosRepository.save(socio);
+
+            return ResponseEntity.ok(response + " Socio Restaurado con éxito.");
+
+        } else {
+            return ResponseEntity.ok(response
+                    + "Pero Error, el socio tiene varias suspensiones acumuladas, hasta no eliminar la ultima, segurá en estado de suspension.");
+        }
+
     }
 
-    public void retirarSocio(Integer id) throws IllegalAccessException {
-        Socio socio = getSocio(id);
-        socio.setEstadoVerificacion("Retirado");
+    public ResponseEntity<Object> retirarSocio(Integer idSocio) throws IllegalAccessException {
+        Socio socio = getSocio(idSocio);
+        socio.setEstadoVerificacion(EstadoVerificacionEnum.RETIRADO.getEstado());
         socio.setFechaSuspension(new Date());
         this.sociosRepository.save(socio);
+
+        return ResponseEntity.ok("Socio ha pasado a estado de RETIRADO.");
+
     }
 
     private Socio getSocio(Integer id) throws IllegalAccessException {
@@ -67,19 +95,10 @@ public class SuspensionServices {
         return socio;
     }
 
-    public void levantarSuspension(Integer suspensionId) throws IllegalAccessException {
-        Suspension suspension = getSuspension(suspensionId);
-        var socio = suspension.getSocios();
-        socio.setEstadoVerificacion("Verificado");
-        socio.setFechaSuspension(null);
-        socio.setMotivoSuspension("");
-        this.sociosRepository.save(socio);
-    }
-
     private Suspension getSuspension(Integer suspensionId) throws IllegalAccessException {
         var suspensionOpt = this.suspensionRepository.findById(suspensionId);
         if (suspensionOpt.isEmpty()) {
-            throw new IllegalAccessException("Socio consultado no existe");
+            throw new IllegalAccessException("Suspension consultada no existe");
         }
         var suspension = suspensionOpt.get();
         return suspension;

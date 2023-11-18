@@ -1,4 +1,3 @@
-
 package com.modulosocios.ModuloSocios.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -18,43 +17,36 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author anima
- */
 @Entity
-@Table (name = "administrador" )
+@Table(name = "administrador")
 @Data
-public class Administrador
-{
+public class Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    @Column (name = "id" )
+
+    @Column(name = "id")
     private Integer id_administrador_fk;
-    
-    @Column (name = "nombre" )
+
+    @Column(name = "nombre")
     private String nombreAdmin;
-    
-    @Column (name = "correoelectronico" )
+
+    @Column(name = "correoelectronico")
     private String correoElectronicoAdmin;
-    
-    @Column (name = "telefono" )
+
+    @Column(name = "telefono")
     private String telefonoAdmin;
-    
-    @Column (name = "nombreusuario" )
+
+    @Column(name = "nombreusuario")
     private String nombreusuarioAdmin;
-   
-    @Column (name = "contrasena" )
+
+    @Column(name = "contrasena")
     private String contrasenaAdmin;
-    
-    @Column (name = "fecharegistro" )
+
+    @Column(name = "fecharegistro")
     private Date fechaRegistroAdmin;
 
     @JsonBackReference
     @OneToMany(mappedBy = "administrador")
     @JsonIgnore
     private List<Socio> socios;
-    //private List<Vehiculo> vehiculo;
 }
-

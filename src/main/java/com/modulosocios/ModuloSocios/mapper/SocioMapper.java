@@ -1,6 +1,5 @@
 package com.modulosocios.ModuloSocios.mapper;
 
-
 import com.modulosocios.ModuloSocios.dtos.SocioDto;
 import com.modulosocios.ModuloSocios.dtos.SocioSimpleDto;
 
@@ -18,9 +17,12 @@ public interface SocioMapper {
     Socios toEntity(final SociosDto sociosDto);//Mapeo de DTO a entidad
     SociosDto toDto(final Socios socios);//Mapeo de entidad a DTO 
 } */
-@Mapper (componentModel = "spring")
+
+@Mapper(componentModel = "spring")
 public interface SocioMapper {
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)//Control para los campos nulos
-    SocioSimple toEntity(final SocioSimpleDto sociosNuevaDto);//Mapeo de DTO a entidad
-    SocioSimpleDto toDto(final SocioSimple sociosNueva);//Mapeo de entidad a DTO 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE) // Control para los campos
+                                                                                             // nulos
+    SocioSimple toEntity(final SocioSimpleDto sociosNuevaDto);// Mapeo de DTO a entidad
+
+    SocioSimpleDto toDto(final SocioSimple sociosNueva);// Mapeo de entidad a DTO
 }

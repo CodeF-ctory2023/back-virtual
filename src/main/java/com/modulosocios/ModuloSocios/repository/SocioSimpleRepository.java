@@ -7,13 +7,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author anima
- */
+public interface SocioSimpleRepository extends JpaRepository<SocioSimple, Integer> {
 
-
-public interface SocioSimpleRepository extends JpaRepository<SocioSimple, Integer>{
-    
-    List <SocioSimple> findByNombreContainingIgnoreCase(String nombre);
+    List<SocioSimple> findByNombreContainingIgnoreCase(String nombre);
 }

@@ -1,4 +1,3 @@
-
 package com.modulosocios.ModuloSocios.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -7,10 +6,6 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author anima
- */
 @Entity
 @Table (name = "socio" )
 @Data
@@ -29,6 +24,9 @@ public class Socio {
     
     @Column (name = "telefono" )
     private String telefono;
+
+    @Column (name = "ciudad" )
+    private String ciudad;
     
     @Column (name = "licenciaconducir" )
     private String licenciaConducir;
@@ -63,16 +61,23 @@ public class Socio {
     @Column (name = "contrasena" )
     private String contrasena;
 
+    @Column(name = "pasadojudicial")
+    private String pasadoJudicial;
 
-    @OneToOne(mappedBy = "socios", cascade = CascadeType.REMOVE)
-    private Vehiculo vehiculos;
+    @Column(name = "foto")
+    private String foto;
+
+    
+    @OneToOne(mappedBy = "socio", cascade = CascadeType.ALL)
+    private Vehiculo vehiculo;
+    
     
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "administradorid", insertable = false, updatable = false, nullable = true)
     @JsonIgnore
     private Administrador administrador;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "socios")
+    @OneToMany(mappedBy = "socio", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<Suspension> suspensiones;
 

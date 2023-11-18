@@ -1,28 +1,16 @@
-
 package com.modulosocios.ModuloSocios.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
-/**
- *
- * @author anima
- */
 @Entity
 @Table (name = "retirovehiculo" )
 @Data
-public class Retirovehiculo
+public class RetiroVehiculo
 {
     
     @Id
@@ -42,14 +30,12 @@ public class Retirovehiculo
     @Column (name = "justificacion" )
     private String justificacion;
     
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehiculoid", insertable = false, updatable = false, nullable = true)
-    private Vehiculo vehiculo;
-   
-      
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
-    private Socio socios;
+    @ManyToOne
+    @JoinColumn(name = "socioid", insertable = false, updatable = false)
+    private Socio socio;
     
+    @ManyToOne
+    @JoinColumn(name = "vehiculoid", insertable = false, updatable = false)
+    private Vehiculo vehiculo;
    
 }
