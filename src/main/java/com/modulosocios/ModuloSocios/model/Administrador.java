@@ -3,7 +3,6 @@ package com.modulosocios.ModuloSocios.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.CascadeType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,7 +35,7 @@ public class Administrador {
     @Column(name = "telefono")
     private String telefonoAdmin;
 
-    @Column(name = "nombreusuario")
+    @Column(name = "nombreusuarioAdmin")
     private String nombreusuarioAdmin;
 
     @Column(name = "contrasena")

@@ -2,8 +2,8 @@ package com.modulosocios.ModuloSocios.controller;
 
 import com.modulosocios.ModuloSocios.dtos.AdministradorDto;
 import com.modulosocios.ModuloSocios.model.Administrador;
-import com.modulosocios.ModuloSocios.services.AdministradorServices;
-import com.modulosocios.ModuloSocios.services.SocioServices;
+import com.modulosocios.ModuloSocios.services.AdministradorService;
+import com.modulosocios.ModuloSocios.services.SocioService;
 import com.modulosocios.ModuloSocios.enums.EstadoVerificacionEnum;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,14 +24,14 @@ import java.util.List;
 public class AdministradoresControllerTest {
 
     @MockBean
-    private AdministradorServices administradorServices;
+    private AdministradorService administradorServices;
     private AdministradorController controller;
     // private SociosServices sociosServices;
-    private SocioServices mockSociosServices = mock(SocioServices.class);
+    private SocioService mockSociosServices = mock(SocioService.class);
     
     @Before
     public void setUp() {
-        controller = new AdministradorController(administradorServices, mockSociosServices);
+        controller = new AdministradorController(administradorServices, null, mockSociosServices);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class AdministradoresControllerTest {
         Integer idSocio = 1;
         EstadoVerificacionEnum nuevoEstado = EstadoVerificacionEnum.SUSPENDIDO;
         // Configurar el comportamiento del mock
-        when(mockSociosServices.changeStatusForSocio(idSocio, nuevoEstado.name())).thenReturn(true);
+        when(mockSociosServices.changeSocioStatus(idSocio, nuevoEstado.name())).thenReturn(true);
         ResponseEntity response = controller.changeSocioStatus(idSocio, nuevoEstado.name());
         // La respuesta debe ser OK
         assertEquals(HttpStatus.OK, response.getStatusCode());

@@ -1,6 +1,9 @@
 package com.modulosocios.ModuloSocios.dtos;
 
 import java.util.Date;
+
+import com.modulosocios.ModuloSocios.model.Socio;
+
 import lombok.*;
 
 @Getter
@@ -16,4 +19,8 @@ public class SuspensionDto {
     private Date fechaHoraSuspension;
 
     private String motivo;
+
+    private String estado;
+
+    private Socio socio;
 }

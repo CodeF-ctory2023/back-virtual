@@ -1,60 +1,60 @@
 package com.modulosocios.ModuloSocios.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
 
-/**
- *
- * @author anima
- */
 @Entity
-@Table (name = "vehiculo" )
+@Table(name = "vehiculo")
 @Data
 public class Vehiculo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id" )
+    @Column(name = "id")
     private Integer id;
-    
-    @Column (name = "socioid" )
+
+    @Column(name = "socioid")
     private Integer socioid;
-    
-    @Column (name = "marca" )
+
+    // Campos ingresados en el formulario
+    @Column(name = "matriculaNumber")
+    private String matriculaNumber;
+
+    @Column(name = "marca")
     private String marca;
-    
-    @Column (name = "modelo" )
+
+    @Column(name = "modelo")
     private String modelo;
-    
-    @Column (name = "capacidad" )
+
+    @Column(name = "capacidad")
     private Integer capacidad;
-    
-    @Column (name = "habilitadoequipaje" )
+
+    @Column(name = "habilitadoequipaje")
     private Boolean habilitadoEquipaje;
-    
-    @Column (name = "permitemascotas" )
+
+    @Column(name = "permitemascotas")
     private Boolean permiteMascotas;
-    
-    @Column (name = "matricula" )
+
+    // Campos de tipo File
+    @Column(name = "matricula")
     private String matricula;
-    
-    @Column (name = "soat" )
+
+    @Column(name = "soat")
     private String soat;
-    
-    @Column (name = "tecnomecanica" )
+
+    @Column(name = "tecnomecanica")
     private String tecnomecanica;
-         
-    @Column (name = "estadoverificacion" )
-    private String estadoVerificacion;
-    
-    @Column (name = "adjuntodocumentos" )
+
+    @Column(name = "adjuntodocumentos")
     private String adjuntoDocumentos;
 
-    
+    // Campos adicionales que se calculan automáticamente
+    @Column(name = "estadoverificacion")
+    private String estadoVerificacion;
+
     @OneToOne
     @JoinColumn(name = "socioid", unique = true, insertable = false, updatable = false)
     @JsonIgnore

@@ -5,11 +5,12 @@ import com.modulosocios.ModuloSocios.model.Administrador;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring")
 public interface AdministradorMapper {
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)//Control para los campos nulos
-    Administrador toEntity(final Administrador administradorDto);//Mapeo de DTO a entidad
-    AdministradorDto toDto(final Administrador administrador);//Mapeo de entidad a DTO 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE) // Control para los campos
+                                                                                             // nulos
+    Administrador toEntity(final Administrador administradorDto);// Mapeo de DTO a entidad
+
+    AdministradorDto toDto(final Administrador administrador);// Mapeo de entidad a DTO
 }

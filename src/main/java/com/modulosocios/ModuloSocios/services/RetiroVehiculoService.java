@@ -8,42 +8,34 @@ import com.modulosocios.ModuloSocios.repository.RetiroVehiculoRepository;
 import com.modulosocios.ModuloSocios.repository.SocioRepository;
 import com.modulosocios.ModuloSocios.repository.VehiculoRepository;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RetiroVehiculoServices {
+public class RetiroVehiculoService {
 
     private RetiroVehiculoRepository retiroVehiculoRepository;
     private SocioRepository socioRepository;
     private VehiculoRepository vehiculoRepository;
-    private VehiculoServices vehiculoService;
 
-    // Inyeccion Dependencias por Constructor
-    public RetiroVehiculoServices(RetiroVehiculoRepository retiroVehiculoRepository, SocioRepository socioRepository,
-            VehiculoRepository vehiculoRepository,
-            VehiculoServices vehiculoService) {
+    public RetiroVehiculoService(RetiroVehiculoRepository retiroVehiculoRepository, SocioRepository socioRepository,
+            VehiculoRepository vehiculoRepository) {
         this.socioRepository = socioRepository;
         this.retiroVehiculoRepository = retiroVehiculoRepository;
         this.vehiculoRepository = vehiculoRepository;
-        this.vehiculoService = vehiculoService;
     }
 
     public List<RetiroVehiculo> findRetirovehiculo(Integer vehiculoId) {
-
         List<RetiroVehiculo> retiroVehiculo = retiroVehiculoRepository.findByVehiculoId(vehiculoId);
         if (!retiroVehiculo.isEmpty()) {
 
             return retiroVehiculo;
 
         } else {
-            throw new NoSuchElementException("Registro no encontrado.");
+            throw new RuntimeException("Registro no encontrado.");
         }
 
     }
@@ -73,11 +65,11 @@ public class RetiroVehiculoServices {
 
                 return retiroVehiculoRepository.save(retiroVehiculo);
             } else {
-                throw new NoSuchElementException("Vehiculo ya ha sido retirado.");
+                throw new RuntimeException("Vehiculo ya ha sido retirado.");
             }
 
         } else {
-            throw new NoSuchElementException("Socio o Vehiculo no encontrado.");
+            throw new RuntimeException("Socio o Vehiculo no encontrado.");
         }
     }
 }

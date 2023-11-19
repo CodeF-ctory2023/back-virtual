@@ -8,6 +8,8 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
+import com.modulosocios.ModuloSocios.model.Vehiculo;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,17 +18,21 @@ public class SocioDto {
 
     private Integer id;
 
+    private String documentoIdentidad;
+
     private String nombre;
 
     private String correoElectronico;
 
     private String telefono;
 
+    private String ciudad;
+
+    private String pasadoJudicial;
+
     private String licenciaConducir;
 
-    private String documentoIdentidad;
-
-    private String ciudad;
+    private String foto;
 
     private String estadoVerificacion;
 
@@ -36,6 +42,8 @@ public class SocioDto {
 
     private Date fechaSuspension;
 
+    private Date fechaRetiro;
+
     private String motivoSuspension;
 
     private Boolean pendientedeVerificacion;
@@ -44,10 +52,10 @@ public class SocioDto {
 
     private Integer administradorId;
 
-    private String contrasena;
-
-    private VehiculoDto vehiculos;
+    private Vehiculo vehiculo;
 
     private AdministradorDto administrador;
+
+    private List<SuspensionDto> suspensiones;
 
 }

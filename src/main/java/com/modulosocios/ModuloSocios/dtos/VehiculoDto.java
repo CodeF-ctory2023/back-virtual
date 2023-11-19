@@ -1,5 +1,10 @@
 package com.modulosocios.ModuloSocios.dtos;
 
+import java.util.List;
+
+import com.modulosocios.ModuloSocios.model.RetiroVehiculo;
+import com.modulosocios.ModuloSocios.model.Socio;
+
 import lombok.*;
 
 @Getter
@@ -10,7 +15,9 @@ public class VehiculoDto {
 
     private Integer id;
 
-    private Integer id_vehiculo_fk;
+    private Integer socioid;
+
+    private String nMatricula;
 
     private String marca;
 
@@ -28,7 +35,11 @@ public class VehiculoDto {
 
     private String tecnomecanica;
 
+    private String adjuntoDocumentos;
+
     private String estadoVerificacion;
 
-    private String adjuntoDocumentos;
+    private Socio socio;
+
+    private List<RetiroVehiculo> retiros;
 }

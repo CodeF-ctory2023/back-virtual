@@ -6,24 +6,27 @@ import java.util.Date;
 import lombok.*;
 
 @Entity
-@Table (name = "suspension" )
+@Table(name = "suspension")
 @Data
 public class Suspension {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    
-    @Column (name = "id" )
+
+    @Column(name = "id")
     private Integer id;
-    
-    @Column (name = "socioid" )
+
+    @Column(name = "socioid")
     private Integer socioId;
-    
-    @Column (name = "fechahorasuspension" )
+
+    @Column(name = "fechahorasuspension")
     private Date fechaHoraSuspension;
-    
-    @Column (name = "motivo" )
+
+    @Column(name = "motivo")
     private String motivo;
-    
+
+    @Column(name = "estado")
+    private String estado;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "socioid", insertable = false, updatable = false, nullable = true)
     private Socio socio;

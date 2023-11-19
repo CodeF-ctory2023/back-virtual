@@ -13,21 +13,19 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VehiculoServices {
+public class VehiculoService {
 
     private final VehiculoRepository vehiculosRepository;
     private final VehiculoMapper vehiculoMapper;
     private final SocioRepository sociosRepository;
 
-    private final Logger log = LoggerFactory.getLogger(SocioServices.class);
+    private final Logger log = LoggerFactory.getLogger(SocioService.class);
 
-    // Inyeccion Dependencias por Constructor
-    public VehiculoServices(VehiculoRepository vehiculosRepository, VehiculoMapper vehiculoMapper,
+    public VehiculoService(VehiculoRepository vehiculosRepository, VehiculoMapper vehiculoMapper,
             SocioRepository sociosRepository) {
         this.vehiculosRepository = vehiculosRepository;
         this.vehiculoMapper = vehiculoMapper;
@@ -39,41 +37,58 @@ public class VehiculoServices {
 
         if (socioOptional.isPresent()) {
             Socio socio = socioOptional.get();
-        
+
             if (Objects.equals(socio.getVehiculo(), null)) {
 
-                if (!socio.getEstadoVerificacion().equals("PENDIENTE")
-                        || !socio.getEstadoVerificacion().equals("SUSPENDIDO")) {
+                if (socio.getEstadoVerificacion().equals("ACEPTADO")) {
 
                     log.info("Aún no hay un vehiculo asociado a socio");
+                    Optional<Vehiculo> vehiculoOptional = vehiculosRepository
+                            .findByMatriculaNumber(vehiculo.getMatriculaNumber());
 
-                    vehiculo.setEstadoVerificacion(EstadoVerificacionEnum.PENDIENTE.getEstado());
-                    vehiculo.setSocioid(socioId);
-                    vehiculo.setSocio(socio);
-               
-                    return vehiculosRepository.save(vehiculo);
+                    if (!vehiculoOptional.isPresent()) {
+                        log.info("El vehiculo a insertar es nuevo");
+                        vehiculo.setEstadoVerificacion(EstadoVerificacionEnum.PENDIENTE.getEstado());
+                        vehiculo.setSocioid(socioId);
+                        vehiculo.setSocio(socio);
+
+                        return vehiculosRepository.save(vehiculo);
+                    } else {
+                        log.info("El vehiculo a insertar ya existía antes");
+                        Vehiculo vehiculoExistente = vehiculoOptional.get();
+                        vehiculoExistente.setEstadoVerificacion(EstadoVerificacionEnum.PENDIENTE.getEstado());
+                        vehiculoExistente.setSocioid(socioId);
+                        vehiculoExistente.setSocio(socio);
+
+                        return vehiculosRepository.save(vehiculoExistente);
+                    }
+
                 } else {
-                    throw new IllegalStateException("Error, socio tiene un estado inválido.");
+                    throw new RuntimeException("Error, socio tiene un estado inválido.");
                 }
             } else {
-                throw new IllegalStateException("El socio ya tiene un vehículo asociado.");
+                throw new RuntimeException("El socio ya tiene un vehículo asociado.");
             }
         } else {
-            throw new NoSuchElementException("Socio no encontrado con ID: " + socioId);
+            throw new RuntimeException("Socio no encontrado con ID: " + socioId);
         }
     }
 
-    public List<Vehiculo> findByname(String matricula) {
-        var vehiculo = vehiculosRepository.findByMatriculaStartingWith(matricula);
-
-        return vehiculo;
+    public Optional<Vehiculo> findByNMatricula(String matricula) {
+        if (Objects.isNull(matricula)) {
+            throw new RuntimeException("Se necesita una matricula");
+        }
+        Optional<Vehiculo> vehiculo = vehiculosRepository.findByMatriculaNumber(matricula);
+        if (vehiculo.isPresent()) {
+            return vehiculo;
+        } else {
+            throw new RuntimeException("Vehiculo no encontrado");
+        }  
     }
 
     public List<Vehiculo> findAll() {
-
         var vehiculosList = vehiculosRepository.findAll();
         return vehiculosList;
-
     }
 
     public VehiculoDto findById(Integer id) {
@@ -95,6 +110,19 @@ public class VehiculoServices {
         }
         vehiculosRepository.delete(optionalVehiculo.get());
         return ResponseEntity.ok("Vehículo eliminado con éxito.");
+    }
+
+    public Boolean changeVehicleStatus(Integer id, String status) {
+        Optional<Vehiculo> vehiculoOptional = vehiculosRepository.findById(id);
+        if (vehiculoOptional.isEmpty()) {
+            throw new RuntimeException("Vehiculo no encontrado");
+        }
+        Vehiculo vehiculo = vehiculoOptional.get();
+        vehiculo.setEstadoVerificacion(EstadoVerificacionEnum.valueOf(status).name());
+
+        vehiculosRepository.save(vehiculo);
+
+        return Boolean.TRUE;
     }
 
 }

@@ -1,16 +1,13 @@
 package com.modulosocios.ModuloSocios.controller;
 
-import com.modulosocios.ModuloSocios.dtos.SocioDto;
 import com.modulosocios.ModuloSocios.dtos.SocioSimpleDto;
 
-import com.modulosocios.ModuloSocios.mapper.SocioMapper;
 import com.modulosocios.ModuloSocios.model.Socio;
-import com.modulosocios.ModuloSocios.model.SocioSimple;
-import com.modulosocios.ModuloSocios.services.AdministradorServices;
-import com.modulosocios.ModuloSocios.services.SocioServices;
+
+import com.modulosocios.ModuloSocios.services.SocioService;
 import java.util.List;
-import java.util.Calendar;
-import java.util.Date;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,23 +15,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/socio")
 public class SocioController {
 
-    private SocioServices sociosServices;
-    private final SocioMapper socioMapper;
+    private SocioService sociosServices;
 
-    public SocioController(SocioServices sociosServices, SocioMapper socioMapper) {
+    public SocioController(SocioService sociosServices) {
         this.sociosServices = sociosServices;
-        this.socioMapper = socioMapper;
     }
 
     @GetMapping("/find-by-name/{nombre}")
-    public ResponseEntity<List<Socio>> findByName(@PathVariable String nombre) {
+    public ResponseEntity<List<SocioSimpleDto>> findByName(@PathVariable String nombre) {
         var socios = sociosServices.findByName(nombre);
-
         return ResponseEntity.ok(socios);
     }
 
     @GetMapping("/find-all")
-    public ResponseEntity<List<SocioSimple>> findAll() {
+    public ResponseEntity<List<SocioSimpleDto>> findAll() {
         var sociosList = sociosServices.findAll();
         return ResponseEntity.ok(sociosList);
     }
@@ -44,13 +38,14 @@ public class SocioController {
         return ResponseEntity.ok(sociosServices.findById(id));
     }
 
+    @GetMapping("/find-by-cedula/{cedula}")
+    public ResponseEntity<SocioSimpleDto> findByCedula(@PathVariable String cedula) {
+        return ResponseEntity.ok(sociosServices.findByCedula(cedula));
+    }
+
     @PostMapping("/create")
-    public ResponseEntity createSocios(@RequestBody SocioSimple crearSocios) {
-        // var sociosCrear = socioMapper.toEntity(crearSocios);
-        // SociosNueva sociosNuevaCrear = socioMapper.toEntity(sociosCrear);
-
-        return ResponseEntity.ok(sociosServices.createSocios(crearSocios));
-
+    public ResponseEntity createSocios(@RequestBody Socio socio) {
+        return ResponseEntity.ok(sociosServices.createSocios(socio));
     }
 
     @PutMapping("/update")
@@ -59,9 +54,9 @@ public class SocioController {
     }
 
     @DeleteMapping("/delete/{socioid}")
-    public ResponseEntity<String> deleteSocio(@PathVariable Integer socioid) {
-        sociosServices.deleteSocio(socioid);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Object> deleteSocio(@PathVariable Integer socioid) {
+        var response = sociosServices.deleteSocio(socioid);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/filter-by-value/{valor}")

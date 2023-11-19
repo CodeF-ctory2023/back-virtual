@@ -1,9 +1,8 @@
 package com.modulosocios.ModuloSocios.controller;
 
 import com.modulosocios.ModuloSocios.model.RetiroVehiculo;
-import com.modulosocios.ModuloSocios.services.RetiroVehiculoServices;
+import com.modulosocios.ModuloSocios.services.RetiroVehiculoService;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,23 +10,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/retirovehiculo")
 public class RetiroVehiculoController {
 
-    private RetiroVehiculoServices retiroVehiculoServices;
+    private RetiroVehiculoService retiroVehiculoServices;
 
-    public RetiroVehiculoController(RetiroVehiculoServices retiroVehiculoServices) {
+    public RetiroVehiculoController(RetiroVehiculoService retiroVehiculoServices) {
         this.retiroVehiculoServices = retiroVehiculoServices;
     }
 
     @GetMapping("/find-by-vehiculo/{vehiculoId}")
     public ResponseEntity<List<RetiroVehiculo>> findRetirovehiculo(@PathVariable Integer vehiculoId) {
         List<RetiroVehiculo> retiroVehiculo = retiroVehiculoServices.findRetirovehiculo(vehiculoId);
-
         return ResponseEntity.ok(retiroVehiculo);
     }
 

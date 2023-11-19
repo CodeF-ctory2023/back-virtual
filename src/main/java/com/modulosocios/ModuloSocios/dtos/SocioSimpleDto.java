@@ -5,8 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
 import java.util.List;
+
+import com.modulosocios.ModuloSocios.model.Vehiculo;
 
 @Getter
 @Setter
@@ -16,6 +17,8 @@ public class SocioSimpleDto {
 
     private Integer id;
 
+    private String documentoIdentidad;
+
     private String nombre;
 
     private String correoElectronico;
@@ -24,14 +27,16 @@ public class SocioSimpleDto {
 
     private String ciudad;
 
-    private String documentoIdentidad;
-
-    private String estadoVerificacion;
-
     private String licenciaConducir;
 
     private String pasadoJudicial;
 
     private String foto;
+
+    private String estadoVerificacion;
+
+    private Vehiculo vehiculo;
+
+    private List<SuspensionDto> suspensiones;
 
 }

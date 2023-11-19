@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.modulosocios.ModuloSocios.interfaces.AwsS3ServiceInterface;
+import com.modulosocios.ModuloSocios.services.AwsS3Service;
+
 
 @RestController
 @RequestMapping("/file")
 public class AwsS3Controler {
 
-    private final AwsS3ServiceInterface awsS3Service;
+    private final AwsS3Service awsS3Service;
 
-    public AwsS3Controler(AwsS3ServiceInterface awsS3Service) {
+    public AwsS3Controler(AwsS3Service awsS3Service) {
         this.awsS3Service = awsS3Service;
     }
 

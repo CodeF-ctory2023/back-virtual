@@ -22,7 +22,7 @@ public class AdministradorServicesTest {
     private AdministradorRepository administradorRepository;
 
     @InjectMocks
-    private AdministradorServices administradorServices;
+    private AdministradorService administradorServices;
 
     private Administrador administrador;
 

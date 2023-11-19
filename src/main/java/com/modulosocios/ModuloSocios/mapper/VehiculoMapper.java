@@ -7,12 +7,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-import java.util.List;
+
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface VehiculoMapper {
-    Vehiculo toEntity(final VehiculoDto vehiculoDto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    
     VehiculoDto toDto(final Vehiculo vehiculo);
+
+    Vehiculo toEntity(final VehiculoDto vehiculoDto);
 }

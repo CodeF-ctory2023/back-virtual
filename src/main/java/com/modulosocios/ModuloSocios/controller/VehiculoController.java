@@ -1,10 +1,11 @@
 package com.modulosocios.ModuloSocios.controller;
 
 import com.modulosocios.ModuloSocios.dtos.VehiculoDto;
-import com.modulosocios.ModuloSocios.mapper.VehiculoMapper;
 import com.modulosocios.ModuloSocios.model.Vehiculo;
-import com.modulosocios.ModuloSocios.services.VehiculoServices;
+import com.modulosocios.ModuloSocios.services.VehiculoService;
 import java.util.List;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,22 +13,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/vehiculo")
 public class VehiculoController {
 
-    private VehiculoServices vehiculosServices;
-    private final VehiculoMapper vehiculoMapper;
+    private VehiculoService vehiculosServices;
 
-    // Inyectar Dependencia, para consumir FindByNAME
-
-    public VehiculoController(VehiculoServices vehiculosServices, VehiculoMapper vehiculoMapper) {
+    public VehiculoController(VehiculoService vehiculosServices) {
         this.vehiculosServices = vehiculosServices;
-        this.vehiculoMapper = vehiculoMapper;
     }
 
-    @GetMapping("/find-by-name/{matricula}")
-    public ResponseEntity<List<Vehiculo>> buscarPorMatricula(@PathVariable String matricula) {
-
-        var vehiculos = vehiculosServices.findByname(matricula);
-
-        return ResponseEntity.ok(vehiculos);
+    @GetMapping("/find-by-matricula/{matricula}")
+    public ResponseEntity<Object> findByNMatricula(@PathVariable String matricula) {
+        var vehiculo = vehiculosServices.findByNMatricula(matricula);
+        return ResponseEntity.ok(vehiculo);
     }
 
     @GetMapping("/find-all")
@@ -38,18 +33,19 @@ public class VehiculoController {
 
     @GetMapping("/find-id/{id}")
     public ResponseEntity<VehiculoDto> findById(@PathVariable Integer id) {
-        return ResponseEntity.ok(vehiculosServices.findById(id));
+        var vehiculo = vehiculosServices.findById(id);
+        return ResponseEntity.ok(vehiculo);
     }
 
     @PostMapping("/create/{socioId}")
-    public ResponseEntity createVehiculo(@RequestBody Vehiculo vehiculo, @PathVariable Integer socioId) {
-        return ResponseEntity.ok(vehiculosServices.createVehiculo(vehiculo, socioId));
+    public ResponseEntity<Object> createVehiculo(@RequestBody Vehiculo newVehiculo, @PathVariable Integer socioId) {
+        var vehiculo = vehiculosServices.createVehiculo(newVehiculo, socioId);
+        return ResponseEntity.ok(vehiculo);
     }
 
     @DeleteMapping("/delete/{socioid}")
-    public ResponseEntity<String> deleteVehiculo(@PathVariable Integer vehiculoId) {
-        vehiculosServices.deleteVehiculo(vehiculoId);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Object> deleteVehiculo(@PathVariable Integer vehiculoId) {
+        var response = vehiculosServices.deleteVehiculo(vehiculoId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-
 }

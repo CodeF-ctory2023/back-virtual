@@ -3,8 +3,6 @@ package com.modulosocios.ModuloSocios.model;
 import jakarta.persistence.*;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 
 @Entity

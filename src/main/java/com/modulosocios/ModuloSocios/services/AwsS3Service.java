@@ -22,10 +22,8 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import com.modulosocios.ModuloSocios.interfaces.AwsS3ServiceInterface;
-
 @Service
-public class AwsS3Service implements AwsS3ServiceInterface {
+public class AwsS3Service {
 
     private final Logger LOGGER = LoggerFactory.getLogger(AwsS3Service.class);
 
@@ -35,7 +33,6 @@ public class AwsS3Service implements AwsS3ServiceInterface {
     @Value("${aws.s3.bucket}")
     private String bucketName;
 
-    @Override
     public Object uploadFile(MultipartFile file) {
         try {
             File mainFile = new File(file.getOriginalFilename());
@@ -70,7 +67,6 @@ public class AwsS3Service implements AwsS3ServiceInterface {
         }
     }
 
-    @Override
     public List<String> getFilesFromS3() {
         ListObjectsV2Result result = amazonS3.listObjectsV2(bucketName);
         List<S3ObjectSummary> objects = result.getObjectSummaries();
@@ -88,7 +84,6 @@ public class AwsS3Service implements AwsS3ServiceInterface {
         }
     }
 
-    @Override
     public InputStream downloadFile(String key) {
         try {
             boolean fileExists = amazonS3.doesObjectExist(bucketName, key);
@@ -114,7 +109,6 @@ public class AwsS3Service implements AwsS3ServiceInterface {
         }
     }
 
-    @Override
     public Object deleteFile(String fileName) {
         try {
             boolean fileExists = amazonS3.doesObjectExist(bucketName, fileName);
@@ -143,7 +137,7 @@ public class AwsS3Service implements AwsS3ServiceInterface {
 
     public Object updateFile(MultipartFile newFile, String oldFileName) {
         try {
-            // Verificar si el archivo existente realmente existe
+            // Verificar si el archivo realmente existe
             boolean fileExists = amazonS3.doesObjectExist(bucketName, oldFileName);
 
             if (fileExists) {
@@ -163,14 +157,14 @@ public class AwsS3Service implements AwsS3ServiceInterface {
 
                     String response = "Archivo actualizado con éxito en S3 ";
                     LOGGER.info(response + " Nuevo nombre: " + newFileName);
-			
-		    // Elimina la copia local
+
+                    // Elimina la copia local
                     stream.close();
-            	    if (mainFile.delete()) {
-                   	LOGGER.info("Copia local borrada");
+                    if (mainFile.delete()) {
+                        LOGGER.info("Copia local borrada");
                     } else {
-			LOGGER.error("Copia local no borrada");
-            	    }
+                        LOGGER.error("Copia local no borrada");
+                    }
 
                     return jsonBuild(newFileName, response);
 

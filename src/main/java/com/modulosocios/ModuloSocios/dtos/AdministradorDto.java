@@ -1,7 +1,11 @@
 package com.modulosocios.ModuloSocios.dtos;
 
 import java.util.Date;
+import java.util.List;
+
 import com.modulosocios.ModuloSocios.model.Administrador;
+import com.modulosocios.ModuloSocios.model.Socio;
+
 import lombok.*;
 
 @Getter
@@ -25,5 +29,7 @@ public class AdministradorDto {
     private String contrasenaAdmin;
 
     private Date fechaRegistroAdmin;
+
+    private List<Socio> socios;
 
 }
