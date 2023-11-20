@@ -33,3 +33,76 @@ spring.datasource.username=TU_USUARIO
 spring.datasource.password=TU_CONTRASEÑA
 spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.Oracle12cDialect
+
+```
+
+## KAFKA ##
+
+# Instalación de Kafka con Docker
+
+## Configuración de Docker Network
+
+Crea una red Docker para facilitar la comunicación entre los contenedores Kafka y Zookeeper:
+
+```bash
+docker network create kafka-net
+```
+
+## Paso 1: Instalar y Ejecutar Wurstmeister Kafka
+
+Ejecuta el siguiente comando para instalar y ejecutar la imagen de Wurstmeister Kafka:
+
+```bash
+docker run -d --name kafka --network kafka-net -p 9092:9092 \
+-e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT="//localhost:9092" \
+-e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP="PLAINTEXT:PLAINTEXT" \
+-e KAFKA_ZOOKEEPER_CONNECT="zookeeper:2181" wurstmeister/kafka
+```
+
+## Paso 2: Instalar y Ejecutar Confluent Kafka
+
+```bash
+# Descargar la imagen de Confluent Kafka
+docker pull confluentinc/cp-kafka
+
+# Ejecutar el contenedor de Kafka con Confluent
+docker run -d --name kafka --network kafka-net -p 9092:9092 -p 19092:19092 \
+-e KAFKA_BROKER_ID="1" \
+-e KAFKA_ADVERTISED_LISTENERS="PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:19092" \
+-e KAFKA_LISTENER_SECURITY_PROTOCOL_MAP="PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT" \
+-e KAFKA_INTER_BROKER_LISTENER_NAME="PLAINTEXT" \
+-e KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR="1" \
+-e KAFKA_ZOOKEEPER_CONNECT="zookeeper:2181" confluentinc/cp-kafka
+```
+
+## Paso 3: Instalar y Ejecutar Confluent Zookeeper
+
+```bash
+# Descargar la imagen de Confluent Zookeeper
+docker pull confluentinc/cp-zookeeper
+
+# Ejecutar el contenedor de Zookeeper con Confluent
+docker run -d --name zookeeper --network kafka-net -p 2181:2181 \
+-e ZOOKEEPER_CLIENT_PORT="2181" \
+-e ZOOKEEPER_TICK_TIME="2000" \
+confluentinc/cp-zookeeper
+```
+
+## Paso 4: Crear un Tópico en Kafka
+
+```bash
+# Acceder al shell de Kafka
+docker exec -it kafka /bin/sh
+
+# Crear un tópico
+kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic KafkaPruebasFabrica
+```
+
+## Paso 5: Escuchar un Tópico en Kafka
+
+```bash
+# Escuchar un tópico
+kafka-console-consumer --bootstrap-server localhost:9092 --topic KafkaPruebasFabrica --from-beginning
+```
+
+
