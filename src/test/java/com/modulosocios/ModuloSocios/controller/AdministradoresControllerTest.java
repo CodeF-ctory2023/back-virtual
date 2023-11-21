@@ -79,7 +79,7 @@ public class AdministradoresControllerTest {
         EstadoVerificacionEnum nuevoEstado = EstadoVerificacionEnum.SUSPENDIDO;
         // Configurar el comportamiento del mock
         when(mockSociosServices.changeSocioStatus(idSocio, nuevoEstado.name())).thenReturn(true);
-        ResponseEntity response = controller.changeSocioStatus(idSocio, nuevoEstado.name());
+        ResponseEntity response = controller.changeSocioStatus(idSocio, nuevoEstado);
         // La respuesta debe ser OK
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }

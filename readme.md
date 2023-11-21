@@ -106,3 +106,15 @@ kafka-console-consumer --bootstrap-server localhost:9092 --topic KafkaPruebasFab
 ```
 
 
+## Acceso a Swagger
+
+Puedes acceder a la interfaz Swagger para explorar y probar los endpoints de la API. Asegúrate de que la aplicación esté en ejecución antes de acceder a Swagger.
+
+- **Swagger UI:** [http://localhost:8081/api/swagger-ui/index.html#/](http://localhost:8081/api/swagger-ui/index.html#/)
+
+### Instrucciones:
+
+1. Asegúrate de que la aplicación esté en ejecución.
+2. Abre el enlace proporcionado en tu navegador.
+3. Explora los diferentes endpoints y realiza pruebas directamente desde Swagger UI.
+
